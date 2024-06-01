@@ -225,7 +225,7 @@ class _AnnotatelessFormBuilderState extends State<AnnotatelessFormBuilder> {
   }
 }
 
-class AnnotatelessForm implements FormModel<Annotateless> {
+class AnnotatelessForm implements FormModel<Annotateless, Annotateless> {
   AnnotatelessForm(
     this.form,
     this.path,

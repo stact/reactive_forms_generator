@@ -180,7 +180,7 @@ class _SubGroupFormBuilderState extends State<SubGroupFormBuilder> {
   }
 }
 
-class SubGroupForm implements FormModel<SubGroup> {
+class SubGroupForm implements FormModel<SubGroup, SubGroup> {
   SubGroupForm(
     this.form,
     this.path,
@@ -663,7 +663,7 @@ class _GroupFormBuilderState extends State<GroupFormBuilder> {
   }
 }
 
-class GroupForm implements FormModel<Group> {
+class GroupForm implements FormModel<Group, Group> {
   GroupForm(
     this.form,
     this.path,
@@ -1334,7 +1334,7 @@ class _NestedFormBuilderState extends State<NestedFormBuilder> {
   }
 }
 
-class NestedForm implements FormModel<Nested> {
+class NestedForm implements FormModel<Nested, Nested> {
   NestedForm(
     this.form,
     this.path,

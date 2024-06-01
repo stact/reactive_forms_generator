@@ -179,7 +179,7 @@ class _LoginFormBuilderState extends State<LoginFormBuilder> {
   }
 }
 
-class LoginForm implements FormModel<Login> {
+class LoginForm implements FormModel<Login, Login> {
   LoginForm(
     this.form,
     this.path,

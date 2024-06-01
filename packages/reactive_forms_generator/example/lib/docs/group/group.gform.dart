@@ -179,7 +179,7 @@ class _GroupFormBuilderState extends State<GroupFormBuilder> {
   }
 }
 
-class GroupForm implements FormModel<Group> {
+class GroupForm implements FormModel<Group, Group> {
   GroupForm(
     this.form,
     this.path,
@@ -693,7 +693,7 @@ class GroupForm implements FormModel<Group> {
           disabled: false);
 }
 
-class PersonalForm implements FormModel<Personal> {
+class PersonalForm implements FormModel<Personal, Personal> {
   PersonalForm(
     this.form,
     this.path,
@@ -1001,7 +1001,7 @@ class PersonalForm implements FormModel<Personal> {
           disabled: false);
 }
 
-class PhoneForm implements FormModel<Phone> {
+class PhoneForm implements FormModel<Phone, Phone> {
   PhoneForm(
     this.form,
     this.path,
@@ -1309,7 +1309,7 @@ class PhoneForm implements FormModel<Phone> {
           disabled: false);
 }
 
-class AddressForm implements FormModel<Address> {
+class AddressForm implements FormModel<Address, Address> {
   AddressForm(
     this.form,
     this.path,

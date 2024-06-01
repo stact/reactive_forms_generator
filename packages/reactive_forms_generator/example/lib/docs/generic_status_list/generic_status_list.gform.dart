@@ -187,7 +187,8 @@ class _StatusListFormBuilderState<T extends Enum>
   }
 }
 
-class StatusListForm<T extends Enum> implements FormModel<StatusList<T>> {
+class StatusListForm<T extends Enum>
+    implements FormModel<StatusList<T>, StatusList<T>> {
   StatusListForm(
     this.form,
     this.path,

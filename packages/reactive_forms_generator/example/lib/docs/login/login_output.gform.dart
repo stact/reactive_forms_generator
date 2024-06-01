@@ -112,7 +112,7 @@ class LoginOFormBuilder extends StatefulWidget {
     this.initState,
   }) : super(key: key);
 
-  final LoginOOutput? model;
+  final LoginO? model;
 
   final Widget? child;
 
@@ -191,7 +191,7 @@ class LoginOOutput extends Equatable {
   List<Object?> get props => [email, password];
 }
 
-class LoginOForm implements FormModel<LoginOOutput> {
+class LoginOForm implements FormModel<LoginO, LoginOOutput> {
   LoginOForm(
     this.form,
     this.path,
@@ -211,9 +211,9 @@ class LoginOForm implements FormModel<LoginOOutput> {
 
   String passwordControlPath() => pathBuilder(passwordControlName);
 
-  String? get _emailValue => emailControl?.value;
+  String get _emailValue => emailControl.value as String;
 
-  String? get _passwordValue => passwordControl?.value;
+  String get _passwordValue => passwordControl.value as String;
 
   bool get containsEmail {
     try {
@@ -233,9 +233,9 @@ class LoginOForm implements FormModel<LoginOOutput> {
     }
   }
 
-  Map<String, Object>? get emailErrors => emailControl?.errors;
+  Map<String, Object>? get emailErrors => emailControl.errors;
 
-  Map<String, Object>? get passwordErrors => passwordControl?.errors;
+  Map<String, Object>? get passwordErrors => passwordControl.errors;
 
   void get emailFocus => form.focus(emailControlPath());
 
@@ -298,7 +298,7 @@ class LoginOForm implements FormModel<LoginOOutput> {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    emailControl?.updateValue(value,
+    emailControl.updateValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
@@ -307,7 +307,7 @@ class LoginOForm implements FormModel<LoginOOutput> {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    passwordControl?.updateValue(value,
+    passwordControl.updateValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
@@ -316,7 +316,7 @@ class LoginOForm implements FormModel<LoginOOutput> {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    emailControl?.patchValue(value,
+    emailControl.patchValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
@@ -325,7 +325,7 @@ class LoginOForm implements FormModel<LoginOOutput> {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    passwordControl?.patchValue(value,
+    passwordControl.patchValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
@@ -336,7 +336,7 @@ class LoginOForm implements FormModel<LoginOOutput> {
     bool removeFocus = false,
     bool? disabled,
   }) =>
-      emailControl?.reset(
+      emailControl.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
 
   void passwordValueReset(
@@ -346,16 +346,14 @@ class LoginOForm implements FormModel<LoginOOutput> {
     bool removeFocus = false,
     bool? disabled,
   }) =>
-      passwordControl?.reset(
+      passwordControl.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
 
-  FormControl<String>? get emailControl => containsEmail
-      ? form.control(emailControlPath()) as FormControl<String>?
-      : null;
+  FormControl<String> get emailControl =>
+      form.control(emailControlPath()) as FormControl<String>;
 
-  FormControl<String>? get passwordControl => containsPassword
-      ? form.control(passwordControlPath()) as FormControl<String>?
-      : null;
+  FormControl<String> get passwordControl =>
+      form.control(passwordControlPath()) as FormControl<String>;
 
   void emailSetDisabled(
     bool disabled, {
@@ -363,12 +361,12 @@ class LoginOForm implements FormModel<LoginOOutput> {
     bool emitEvent = true,
   }) {
     if (disabled) {
-      emailControl?.markAsDisabled(
+      emailControl.markAsDisabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
     } else {
-      emailControl?.markAsEnabled(
+      emailControl.markAsEnabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
@@ -381,12 +379,12 @@ class LoginOForm implements FormModel<LoginOOutput> {
     bool emitEvent = true,
   }) {
     if (disabled) {
-      passwordControl?.markAsDisabled(
+      passwordControl.markAsDisabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
     } else {
-      passwordControl?.markAsEnabled(
+      passwordControl.markAsEnabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
@@ -456,7 +454,7 @@ class LoginOForm implements FormModel<LoginOOutput> {
 
   @override
   void updateValue(
-    LoginOOutput? value, {
+    LoginO? value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) =>
@@ -465,7 +463,7 @@ class LoginOForm implements FormModel<LoginOOutput> {
 
   @override
   void reset({
-    LoginOOutput? value,
+    LoginO? value,
     bool updateParent = true,
     bool emitEvent = true,
   }) =>
@@ -477,7 +475,7 @@ class LoginOForm implements FormModel<LoginOOutput> {
   String pathBuilder(String? pathItem) =>
       [path, pathItem].whereType<String>().join(".");
 
-  static FormGroup formElements(LoginOOutput? loginO) => FormGroup({
+  static FormGroup formElements(LoginO? loginO) => FormGroup({
         emailControlName: FormControl<String>(
             value: loginO?.email,
             validators: [RequiredValidator(), RequiredValidator()],

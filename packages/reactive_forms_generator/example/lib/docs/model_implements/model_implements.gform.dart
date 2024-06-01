@@ -188,7 +188,8 @@ class _ModelImplementsFormBuilderState
   }
 }
 
-class ModelImplementsForm implements FormModel<ModelImplements> {
+class ModelImplementsForm
+    implements FormModel<ModelImplements, ModelImplements> {
   ModelImplementsForm(
     this.form,
     this.path,

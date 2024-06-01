@@ -183,7 +183,7 @@ class _UserProfileFormBuilderState extends State<UserProfileFormBuilder> {
   }
 }
 
-class UserProfileForm implements FormModel<UserProfile> {
+class UserProfileForm implements FormModel<UserProfile, UserProfile> {
   UserProfileForm(
     this.form,
     this.path,
@@ -692,7 +692,7 @@ class UserProfileForm implements FormModel<UserProfile> {
           disabled: false);
 }
 
-class AddressForm implements FormModel<Address> {
+class AddressForm implements FormModel<Address, Address> {
   AddressForm(
     this.form,
     this.path,

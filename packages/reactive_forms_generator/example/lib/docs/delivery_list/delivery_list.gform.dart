@@ -185,7 +185,7 @@ class _DeliveryListFormBuilderState extends State<DeliveryListFormBuilder> {
   }
 }
 
-class DeliveryListForm implements FormModel<DeliveryList> {
+class DeliveryListForm implements FormModel<DeliveryList, DeliveryList> {
   DeliveryListForm(
     this.form,
     this.path,
@@ -702,7 +702,7 @@ class DeliveryListForm implements FormModel<DeliveryList> {
           disabled: false);
 }
 
-class DeliveryPointForm implements FormModel<DeliveryPoint> {
+class DeliveryPointForm implements FormModel<DeliveryPoint, DeliveryPoint> {
   DeliveryPointForm(
     this.form,
     this.path,
@@ -982,7 +982,7 @@ class DeliveryPointForm implements FormModel<DeliveryPoint> {
           disabled: false);
 }
 
-class AddressForm implements FormModel<Address> {
+class AddressForm implements FormModel<Address, Address> {
   AddressForm(
     this.form,
     this.path,
@@ -1290,7 +1290,7 @@ class AddressForm implements FormModel<Address> {
           disabled: false);
 }
 
-class ClientForm implements FormModel<Client> {
+class ClientForm implements FormModel<Client, Client> {
   ClientForm(
     this.form,
     this.path,
@@ -1984,7 +1984,8 @@ class _StandaloneDeliveryPointFormBuilderState
   }
 }
 
-class StandaloneDeliveryPointForm implements FormModel<DeliveryPoint> {
+class StandaloneDeliveryPointForm
+    implements FormModel<DeliveryPoint, DeliveryPoint> {
   StandaloneDeliveryPointForm(
     this.form,
     this.path,

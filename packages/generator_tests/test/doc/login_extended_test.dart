@@ -292,7 +292,7 @@ class _LoginExtendedFormBuilderState extends State<LoginExtendedFormBuilder> {
   }
 }
 
-class LoginExtendedForm implements FormModel<LoginExtended> {
+class LoginExtendedForm implements FormModel<LoginExtended, LoginExtended> {
   LoginExtendedForm(
     this.form,
     this.path,

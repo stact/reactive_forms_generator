@@ -3,14 +3,14 @@
 // ignore_for_file: type=lint
 // ignore_for_file:
 
-part of 'generic.dart';
+part of 'annotateless_output.dart';
 
 // **************************************************************************
 // ReactiveFormsGenerator
 // **************************************************************************
 
-class ReactiveTagsFormConsumer<T> extends StatelessWidget {
-  const ReactiveTagsFormConsumer({
+class ReactiveAnnotatelessOFormConsumer extends StatelessWidget {
+  const ReactiveAnnotatelessOFormConsumer({
     Key? key,
     required this.builder,
     this.child,
@@ -19,21 +19,21 @@ class ReactiveTagsFormConsumer<T> extends StatelessWidget {
   final Widget? child;
 
   final Widget Function(
-      BuildContext context, TagsForm<T> formModel, Widget? child) builder;
+      BuildContext context, AnnotatelessOForm formModel, Widget? child) builder;
 
   @override
   Widget build(BuildContext context) {
-    final formModel = ReactiveTagsForm.of<T>(context);
+    final formModel = ReactiveAnnotatelessOForm.of(context);
 
-    if (formModel is! TagsForm<T>) {
+    if (formModel is! AnnotatelessOForm) {
       throw FormControlParentNotFoundException(this);
     }
     return builder(context, formModel, child);
   }
 }
 
-class TagsFormInheritedStreamer<T> extends InheritedStreamer<dynamic> {
-  const TagsFormInheritedStreamer({
+class AnnotatelessOFormInheritedStreamer extends InheritedStreamer<dynamic> {
+  const AnnotatelessOFormInheritedStreamer({
     Key? key,
     required this.form,
     required Stream<dynamic> stream,
@@ -44,11 +44,11 @@ class TagsFormInheritedStreamer<T> extends InheritedStreamer<dynamic> {
           key: key,
         );
 
-  final TagsForm<T> form;
+  final AnnotatelessOForm form;
 }
 
-class ReactiveTagsForm<T> extends StatelessWidget {
-  const ReactiveTagsForm({
+class ReactiveAnnotatelessOForm extends StatelessWidget {
+  const ReactiveAnnotatelessOForm({
     Key? key,
     required this.form,
     required this.child,
@@ -58,32 +58,33 @@ class ReactiveTagsForm<T> extends StatelessWidget {
 
   final Widget child;
 
-  final TagsForm<T> form;
+  final AnnotatelessOForm form;
 
   final bool Function(FormGroup formGroup)? canPop;
 
   final void Function(FormGroup formGroup, bool didPop)? onPopInvoked;
 
-  static TagsForm<T>? of<T>(
+  static AnnotatelessOForm? of(
     BuildContext context, {
     bool listen = true,
   }) {
     if (listen) {
       return context
-          .dependOnInheritedWidgetOfExactType<TagsFormInheritedStreamer<T>>()
+          .dependOnInheritedWidgetOfExactType<
+              AnnotatelessOFormInheritedStreamer>()
           ?.form;
     }
 
     final element = context.getElementForInheritedWidgetOfExactType<
-        TagsFormInheritedStreamer<T>>();
+        AnnotatelessOFormInheritedStreamer>();
     return element == null
         ? null
-        : (element.widget as TagsFormInheritedStreamer<T>).form;
+        : (element.widget as AnnotatelessOFormInheritedStreamer).form;
   }
 
   @override
   Widget build(BuildContext context) {
-    return TagsFormInheritedStreamer(
+    return AnnotatelessOFormInheritedStreamer(
       form: form,
       stream: form.form.statusChanged,
       child: ReactiveFormPopScope(
@@ -95,14 +96,16 @@ class ReactiveTagsForm<T> extends StatelessWidget {
   }
 }
 
-extension ReactiveReactiveTagsFormExt on BuildContext {
-  TagsForm<T>? tagsFormWatch<T>() => ReactiveTagsForm.of<T>(this);
+extension ReactiveReactiveAnnotatelessOFormExt on BuildContext {
+  AnnotatelessOForm? annotatelessOFormWatch() =>
+      ReactiveAnnotatelessOForm.of(this);
 
-  TagsForm<T>? tagsFormRead<T>() => ReactiveTagsForm.of<T>(this, listen: false);
+  AnnotatelessOForm? annotatelessOFormRead() =>
+      ReactiveAnnotatelessOForm.of(this, listen: false);
 }
 
-class TagsFormBuilder<T> extends StatefulWidget {
-  const TagsFormBuilder({
+class AnnotatelessOFormBuilder extends StatefulWidget {
+  const AnnotatelessOFormBuilder({
     Key? key,
     this.model,
     this.child,
@@ -112,7 +115,7 @@ class TagsFormBuilder<T> extends StatefulWidget {
     this.initState,
   }) : super(key: key);
 
-  final Tags<T>? model;
+  final AnnotatelessO? model;
 
   final Widget? child;
 
@@ -121,20 +124,23 @@ class TagsFormBuilder<T> extends StatefulWidget {
   final void Function(FormGroup formGroup, bool didPop)? onPopInvoked;
 
   final Widget Function(
-      BuildContext context, TagsForm<T> formModel, Widget? child) builder;
+      BuildContext context, AnnotatelessOForm formModel, Widget? child) builder;
 
-  final void Function(BuildContext context, TagsForm<T> formModel)? initState;
+  final void Function(BuildContext context, AnnotatelessOForm formModel)?
+      initState;
 
   @override
-  _TagsFormBuilderState<T> createState() => _TagsFormBuilderState<T>();
+  _AnnotatelessOFormBuilderState createState() =>
+      _AnnotatelessOFormBuilderState();
 }
 
-class _TagsFormBuilderState<T> extends State<TagsFormBuilder<T>> {
-  late TagsForm<T> _formModel;
+class _AnnotatelessOFormBuilderState extends State<AnnotatelessOFormBuilder> {
+  late AnnotatelessOForm _formModel;
 
   @override
   void initState() {
-    _formModel = TagsForm<T>(TagsForm.formElements<T>(widget.model), null);
+    _formModel =
+        AnnotatelessOForm(AnnotatelessOForm.formElements(widget.model), null);
 
     if (_formModel.form.disabled) {
       _formModel.form.markAsDisabled();
@@ -146,7 +152,7 @@ class _TagsFormBuilderState<T> extends State<TagsFormBuilder<T>> {
   }
 
   @override
-  void didUpdateWidget(covariant TagsFormBuilder<T> oldWidget) {
+  void didUpdateWidget(covariant AnnotatelessOFormBuilder oldWidget) {
     if (widget.model != oldWidget.model) {
       _formModel.updateValue(widget.model);
     }
@@ -162,7 +168,7 @@ class _TagsFormBuilderState<T> extends State<TagsFormBuilder<T>> {
 
   @override
   Widget build(BuildContext context) {
-    return ReactiveTagsForm(
+    return ReactiveAnnotatelessOForm(
       key: ObjectKey(_formModel),
       form: _formModel,
       canPop: widget.canPop,
@@ -179,13 +185,24 @@ class _TagsFormBuilderState<T> extends State<TagsFormBuilder<T>> {
   }
 }
 
-class TagsForm<T> implements FormModel<Tags<T>, Tags<T>> {
-  TagsForm(
+class AnnotatelessOOutput extends Equatable {
+  final String email;
+  final String password;
+  const AnnotatelessOOutput({@RfControl() this.email = '', this.password = ''});
+  @override
+  List<Object?> get props => [email, password];
+}
+
+class AnnotatelessOForm
+    implements FormModel<AnnotatelessO, AnnotatelessOOutput> {
+  AnnotatelessOForm(
     this.form,
     this.path,
   );
 
-  static const String tagsControlName = "tags";
+  static const String emailControlName = "email";
+
+  static const String passwordControlName = "password";
 
   final FormGroup form;
 
@@ -193,93 +210,132 @@ class TagsForm<T> implements FormModel<Tags<T>, Tags<T>> {
 
   final Map<String, bool> _disabled = {};
 
-  String tagsControlPath() => pathBuilder(tagsControlName);
+  String emailControlPath() => pathBuilder(emailControlName);
 
-  List<T>? get _tagsValue => tagsControl?.value;
+  String passwordControlPath() => pathBuilder(passwordControlName);
 
-  bool get containsTags {
+  String get _emailValue => emailControl.value ?? "";
+
+  String get _passwordValue => passwordControl.value ?? "";
+
+  bool get containsEmail {
     try {
-      form.control(tagsControlPath());
+      form.control(emailControlPath());
       return true;
     } catch (e) {
       return false;
     }
   }
 
-  Map<String, Object>? get tagsErrors => tagsControl?.errors;
-
-  void get tagsFocus => form.focus(tagsControlPath());
-
-  void tagsRemove({
-    bool updateParent = true,
-    bool emitEvent = true,
-  }) {
-    if (containsTags) {
-      final controlPath = path;
-      if (controlPath == null) {
-        form.removeControl(
-          tagsControlName,
-          updateParent: updateParent,
-          emitEvent: emitEvent,
-        );
-      } else {
-        final formGroup = form.control(controlPath);
-
-        if (formGroup is FormGroup) {
-          formGroup.removeControl(
-            tagsControlName,
-            updateParent: updateParent,
-            emitEvent: emitEvent,
-          );
-        }
-      }
+  bool get containsPassword {
+    try {
+      form.control(passwordControlPath());
+      return true;
+    } catch (e) {
+      return false;
     }
   }
 
-  void tagsValueUpdate(
-    List<T>? value, {
+  Map<String, Object> get emailErrors => emailControl.errors;
+
+  Map<String, Object> get passwordErrors => passwordControl.errors;
+
+  void get emailFocus => form.focus(emailControlPath());
+
+  void get passwordFocus => form.focus(passwordControlPath());
+
+  void emailValueUpdate(
+    String value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    tagsControl?.updateValue(value,
+    emailControl.updateValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
-  void tagsValuePatch(
-    List<T>? value, {
+  void passwordValueUpdate(
+    String value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    tagsControl?.patchValue(value,
+    passwordControl.updateValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
-  void tagsValueReset(
-    List<T>? value, {
+  void emailValuePatch(
+    String value, {
+    bool updateParent = true,
+    bool emitEvent = true,
+  }) {
+    emailControl.patchValue(value,
+        updateParent: updateParent, emitEvent: emitEvent);
+  }
+
+  void passwordValuePatch(
+    String value, {
+    bool updateParent = true,
+    bool emitEvent = true,
+  }) {
+    passwordControl.patchValue(value,
+        updateParent: updateParent, emitEvent: emitEvent);
+  }
+
+  void emailValueReset(
+    String value, {
     bool updateParent = true,
     bool emitEvent = true,
     bool removeFocus = false,
     bool? disabled,
   }) =>
-      tagsControl?.reset(
+      emailControl.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
 
-  FormControl<List<T>>? get tagsControl => containsTags
-      ? form.control(tagsControlPath()) as FormControl<List<T>>?
-      : null;
+  void passwordValueReset(
+    String value, {
+    bool updateParent = true,
+    bool emitEvent = true,
+    bool removeFocus = false,
+    bool? disabled,
+  }) =>
+      passwordControl.reset(
+          value: value, updateParent: updateParent, emitEvent: emitEvent);
 
-  void tagsSetDisabled(
+  FormControl<String> get emailControl =>
+      form.control(emailControlPath()) as FormControl<String>;
+
+  FormControl<String> get passwordControl =>
+      form.control(passwordControlPath()) as FormControl<String>;
+
+  void emailSetDisabled(
     bool disabled, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
     if (disabled) {
-      tagsControl?.markAsDisabled(
+      emailControl.markAsDisabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
     } else {
-      tagsControl?.markAsEnabled(
+      emailControl.markAsEnabled(
+        updateParent: updateParent,
+        emitEvent: emitEvent,
+      );
+    }
+  }
+
+  void passwordSetDisabled(
+    bool disabled, {
+    bool updateParent = true,
+    bool emitEvent = true,
+  }) {
+    if (disabled) {
+      passwordControl.markAsDisabled(
+        updateParent: updateParent,
+        emitEvent: emitEvent,
+      );
+    } else {
+      passwordControl.markAsEnabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
@@ -287,15 +343,15 @@ class TagsForm<T> implements FormModel<Tags<T>, Tags<T>> {
   }
 
   @override
-  Tags<T> get model {
+  AnnotatelessOOutput get model {
     final isValid = !currentForm.hasErrors && currentForm.errors.isEmpty;
 
     if (!isValid) {
       debugPrintStack(
           label:
-              '[${path ?? 'TagsForm<T>'}]\n┗━ Avoid calling `model` on invalid form. Possible exceptions for non-nullable fields which should be guarded by `required` validator.');
+              '[${path ?? 'AnnotatelessOForm'}]\n┗━ Avoid calling `model` on invalid form. Possible exceptions for non-nullable fields which should be guarded by `required` validator.');
     }
-    return Tags<T>(tags: _tagsValue);
+    return AnnotatelessOOutput(email: _emailValue, password: _passwordValue);
   }
 
   @override
@@ -332,7 +388,7 @@ class TagsForm<T> implements FormModel<Tags<T>, Tags<T>> {
 
   @override
   void submit({
-    required void Function(Tags<T> model) onValid,
+    required void Function(AnnotatelessOOutput model) onValid,
     void Function()? onNotValid,
   }) {
     currentForm.markAllAsTouched();
@@ -349,16 +405,16 @@ class TagsForm<T> implements FormModel<Tags<T>, Tags<T>> {
 
   @override
   void updateValue(
-    Tags<T>? value, {
+    AnnotatelessO? value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) =>
-      form.updateValue(TagsForm.formElements(value).rawValue,
+      form.updateValue(AnnotatelessOForm.formElements(value).rawValue,
           updateParent: updateParent, emitEvent: emitEvent);
 
   @override
   void reset({
-    Tags<T>? value,
+    AnnotatelessO? value,
     bool updateParent = true,
     bool emitEvent = true,
   }) =>
@@ -370,9 +426,16 @@ class TagsForm<T> implements FormModel<Tags<T>, Tags<T>> {
   String pathBuilder(String? pathItem) =>
       [path, pathItem].whereType<String>().join(".");
 
-  static FormGroup formElements<T>(Tags<T>? tags) => FormGroup({
-        tagsControlName: FormControl<List<T>>(
-            value: tags?.tags,
+  static FormGroup formElements(AnnotatelessO? annotatelessO) => FormGroup({
+        emailControlName: FormControl<String>(
+            value: annotatelessO?.email,
+            validators: [],
+            asyncValidators: [],
+            asyncValidatorsDebounceTime: 250,
+            disabled: false,
+            touched: false),
+        passwordControlName: FormControl<String>(
+            value: annotatelessO?.password,
             validators: [],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
@@ -385,9 +448,9 @@ class TagsForm<T> implements FormModel<Tags<T>, Tags<T>> {
           disabled: false);
 }
 
-class ReactiveTagsFormArrayBuilder<ReactiveTagsFormArrayBuilderT, T>
-    extends StatelessWidget {
-  const ReactiveTagsFormArrayBuilder({
+class ReactiveAnnotatelessOFormArrayBuilder<
+    ReactiveAnnotatelessOFormArrayBuilderT> extends StatelessWidget {
+  const ReactiveAnnotatelessOFormArrayBuilder({
     Key? key,
     this.control,
     this.formControl,
@@ -397,27 +460,29 @@ class ReactiveTagsFormArrayBuilder<ReactiveTagsFormArrayBuilderT, T>
             "You have to specify `control` or `formControl`!"),
         super(key: key);
 
-  final FormArray<ReactiveTagsFormArrayBuilderT>? formControl;
+  final FormArray<ReactiveAnnotatelessOFormArrayBuilderT>? formControl;
 
-  final FormArray<ReactiveTagsFormArrayBuilderT>? Function(
-      TagsForm<T> formModel)? control;
+  final FormArray<ReactiveAnnotatelessOFormArrayBuilderT>? Function(
+      AnnotatelessOForm formModel)? control;
+
+  final Widget Function(BuildContext context, List<Widget> itemList,
+      AnnotatelessOForm formModel)? builder;
 
   final Widget Function(
-          BuildContext context, List<Widget> itemList, TagsForm<T> formModel)?
-      builder;
-
-  final Widget Function(BuildContext context, int i,
-      ReactiveTagsFormArrayBuilderT? item, TagsForm<T> formModel) itemBuilder;
+      BuildContext context,
+      int i,
+      ReactiveAnnotatelessOFormArrayBuilderT? item,
+      AnnotatelessOForm formModel) itemBuilder;
 
   @override
   Widget build(BuildContext context) {
-    final formModel = ReactiveTagsForm.of<T>(context);
+    final formModel = ReactiveAnnotatelessOForm.of(context);
 
     if (formModel == null) {
       throw FormControlParentNotFoundException(this);
     }
 
-    return ReactiveFormArray<ReactiveTagsFormArrayBuilderT>(
+    return ReactiveFormArray<ReactiveAnnotatelessOFormArrayBuilderT>(
       formArray: formControl ?? control?.call(formModel),
       builder: (context, formArray, child) {
         final values = formArray.controls.map((e) => e.value).toList();
@@ -448,9 +513,9 @@ class ReactiveTagsFormArrayBuilder<ReactiveTagsFormArrayBuilderT, T>
   }
 }
 
-class ReactiveTagsFormFormGroupArrayBuilder<
-    ReactiveTagsFormFormGroupArrayBuilderT, T> extends StatelessWidget {
-  const ReactiveTagsFormFormGroupArrayBuilder({
+class ReactiveAnnotatelessOFormFormGroupArrayBuilder<
+    ReactiveAnnotatelessOFormFormGroupArrayBuilderT> extends StatelessWidget {
+  const ReactiveAnnotatelessOFormFormGroupArrayBuilder({
     Key? key,
     this.extended,
     this.getExtended,
@@ -461,25 +526,24 @@ class ReactiveTagsFormFormGroupArrayBuilder<
         super(key: key);
 
   final ExtendedControl<List<Map<String, Object?>?>,
-      List<ReactiveTagsFormFormGroupArrayBuilderT>>? extended;
+      List<ReactiveAnnotatelessOFormFormGroupArrayBuilderT>>? extended;
 
   final ExtendedControl<List<Map<String, Object?>?>,
-          List<ReactiveTagsFormFormGroupArrayBuilderT>>
-      Function(TagsForm<T> formModel)? getExtended;
+          List<ReactiveAnnotatelessOFormFormGroupArrayBuilderT>>
+      Function(AnnotatelessOForm formModel)? getExtended;
 
-  final Widget Function(
-          BuildContext context, List<Widget> itemList, TagsForm<T> formModel)?
-      builder;
+  final Widget Function(BuildContext context, List<Widget> itemList,
+      AnnotatelessOForm formModel)? builder;
 
   final Widget Function(
       BuildContext context,
       int i,
-      ReactiveTagsFormFormGroupArrayBuilderT? item,
-      TagsForm<T> formModel) itemBuilder;
+      ReactiveAnnotatelessOFormFormGroupArrayBuilderT? item,
+      AnnotatelessOForm formModel) itemBuilder;
 
   @override
   Widget build(BuildContext context) {
-    final formModel = ReactiveTagsForm.of<T>(context);
+    final formModel = ReactiveAnnotatelessOForm.of(context);
 
     if (formModel == null) {
       throw FormControlParentNotFoundException(this);
@@ -490,20 +554,20 @@ class ReactiveTagsFormFormGroupArrayBuilder<
     return StreamBuilder<List<Map<String, Object?>?>?>(
       stream: value.control.valueChanges,
       builder: (context, snapshot) {
-        final itemList =
-            (value.value() ?? <ReactiveTagsFormFormGroupArrayBuilderT>[])
-                .asMap()
-                .map((i, item) => MapEntry(
-                      i,
-                      itemBuilder(
-                        context,
-                        i,
-                        item,
-                        formModel,
-                      ),
-                    ))
-                .values
-                .toList();
+        final itemList = (value.value() ??
+                <ReactiveAnnotatelessOFormFormGroupArrayBuilderT>[])
+            .asMap()
+            .map((i, item) => MapEntry(
+                  i,
+                  itemBuilder(
+                    context,
+                    i,
+                    item,
+                    formModel,
+                  ),
+                ))
+            .values
+            .toList();
 
         return builder?.call(
               context,

@@ -179,7 +179,7 @@ class _UrlFormBuilderState extends State<UrlFormBuilder> {
   }
 }
 
-class UrlForm implements FormModel<Url> {
+class UrlForm implements FormModel<Url, Url> {
   UrlForm(
     this.form,
     this.path,
@@ -472,7 +472,7 @@ class UrlForm implements FormModel<Url> {
           disabled: false);
 }
 
-class UrlEntityForm implements FormModel<UrlEntity> {
+class UrlEntityForm implements FormModel<UrlEntity, UrlEntity> {
   UrlEntityForm(
     this.form,
     this.path,

@@ -7,13 +7,13 @@ import 'package:reactive_forms_generator/src/extensions.dart';
 import 'package:reactive_forms_generator/src/types.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:recase/recase.dart';
-import 'package:analyzer/src/dart/element/element.dart';
-import 'package:analyzer/src/dart/ast/ast.dart';
 
 abstract class FormElementGenerator {
   final ClassElement root;
   final ParameterElement field;
   final DartType? type;
+
+  static const String validatorKey = 'validators';
 
   FormElementGenerator(this.root, this.field, this.type);
 
@@ -93,7 +93,9 @@ abstract class FormElementGenerator {
   // }
 
   String get validators =>
-      fieldElement.annotationParams(typeChecker)['validators'] ?? '[]';
+      fieldElement
+          .annotationParams(typeChecker)[FormElementGenerator.validatorKey] ??
+      '[]';
 
   String get itemAsyncValidators =>
       fieldElement.annotationParams(typeChecker)['itemAsyncValidators'] ?? '[]';

@@ -18,7 +18,6 @@ class RfParameterVisitor extends RecursiveAstVisitor<dynamic> {
     if (field != null) {
       fieldDeclaration[field.name.toString()] = node;
     }
-    print(node.fields.variables.firstOrNull);
     super.visitFieldDeclaration(node);
   }
 

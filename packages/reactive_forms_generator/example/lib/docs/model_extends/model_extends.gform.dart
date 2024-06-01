@@ -185,7 +185,7 @@ class _ModelExtendsFormBuilderState extends State<ModelExtendsFormBuilder> {
   }
 }
 
-class ModelExtendsForm implements FormModel<ModelExtends> {
+class ModelExtendsForm implements FormModel<ModelExtends, ModelExtends> {
   ModelExtendsForm(
     this.form,
     this.path,

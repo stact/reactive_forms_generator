@@ -1,16 +1,81 @@
-// coverage:ignore-file
+@Timeout(Duration(seconds: 145))
+import 'package:test/test.dart';
+
+import '../helpers.dart';
+
+const fileName = 'login_output';
+
+void main() {
+  group('doc', () {
+    test(
+      'Login Output',
+      () async {
+        return testGenerator(
+          fileName: fileName,
+          model: '''
+            import 'package:flutter/material.dart';
+            import 'package:reactive_forms/reactive_forms.dart';
+            import 'package:reactive_forms/src/validators/required_validator.dart';
+            import 'package:example/helpers.dart';
+            import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
+            
+            part '$fileName.gform.dart';
+            
+            class MustMatchValidator extends Validator<dynamic> {
+              const MustMatchValidator() : super();
+            
+              @override
+              Map<String, dynamic>? validate(AbstractControl<dynamic> control) {
+                return null;
+              }
+            }
+            
+            @Rf(
+              output: true,
+            )
+            @RfGroup(
+              validators: [MustMatchValidator()],
+            )
+            class LoginO extends Equatable {
+              final String? email;
+            
+              final String? password;
+            
+              const LoginO({
+                @RfControl(
+                  validators: [RequiredValidator(), RequiredValidator()],
+                )
+                this.email,
+                @RfControl(
+                  validators: [RequiredValidator()],
+                )
+                this.password,
+              });
+            
+              @override
+              List<Object?> get props => [email, password];
+            }
+          ''',
+          generatedFile: generatedFile,
+        );
+      },
+    );
+  });
+}
+
+const generatedFile = r'''// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
 // ignore_for_file:
 
-part of 'test.dart';
+part of 'login_output.dart';
 
 // **************************************************************************
 // ReactiveFormsGenerator
 // **************************************************************************
 
-class ReactiveTestFormConsumer extends StatelessWidget {
-  const ReactiveTestFormConsumer({
+class ReactiveLoginOFormConsumer extends StatelessWidget {
+  const ReactiveLoginOFormConsumer({
     Key? key,
     required this.builder,
     this.child,
@@ -18,22 +83,22 @@ class ReactiveTestFormConsumer extends StatelessWidget {
 
   final Widget? child;
 
-  final Widget Function(BuildContext context, TestForm formModel, Widget? child)
-      builder;
+  final Widget Function(
+      BuildContext context, LoginOForm formModel, Widget? child) builder;
 
   @override
   Widget build(BuildContext context) {
-    final formModel = ReactiveTestForm.of(context);
+    final formModel = ReactiveLoginOForm.of(context);
 
-    if (formModel is! TestForm) {
+    if (formModel is! LoginOForm) {
       throw FormControlParentNotFoundException(this);
     }
     return builder(context, formModel, child);
   }
 }
 
-class TestFormInheritedStreamer extends InheritedStreamer<dynamic> {
-  const TestFormInheritedStreamer({
+class LoginOFormInheritedStreamer extends InheritedStreamer<dynamic> {
+  const LoginOFormInheritedStreamer({
     Key? key,
     required this.form,
     required Stream<dynamic> stream,
@@ -44,11 +109,11 @@ class TestFormInheritedStreamer extends InheritedStreamer<dynamic> {
           key: key,
         );
 
-  final TestForm form;
+  final LoginOForm form;
 }
 
-class ReactiveTestForm extends StatelessWidget {
-  const ReactiveTestForm({
+class ReactiveLoginOForm extends StatelessWidget {
+  const ReactiveLoginOForm({
     Key? key,
     required this.form,
     required this.child,
@@ -58,32 +123,32 @@ class ReactiveTestForm extends StatelessWidget {
 
   final Widget child;
 
-  final TestForm form;
+  final LoginOForm form;
 
   final bool Function(FormGroup formGroup)? canPop;
 
   final void Function(FormGroup formGroup, bool didPop)? onPopInvoked;
 
-  static TestForm? of(
+  static LoginOForm? of(
     BuildContext context, {
     bool listen = true,
   }) {
     if (listen) {
       return context
-          .dependOnInheritedWidgetOfExactType<TestFormInheritedStreamer>()
+          .dependOnInheritedWidgetOfExactType<LoginOFormInheritedStreamer>()
           ?.form;
     }
 
     final element = context
-        .getElementForInheritedWidgetOfExactType<TestFormInheritedStreamer>();
+        .getElementForInheritedWidgetOfExactType<LoginOFormInheritedStreamer>();
     return element == null
         ? null
-        : (element.widget as TestFormInheritedStreamer).form;
+        : (element.widget as LoginOFormInheritedStreamer).form;
   }
 
   @override
   Widget build(BuildContext context) {
-    return TestFormInheritedStreamer(
+    return LoginOFormInheritedStreamer(
       form: form,
       stream: form.form.statusChanged,
       child: ReactiveFormPopScope(
@@ -95,14 +160,14 @@ class ReactiveTestForm extends StatelessWidget {
   }
 }
 
-extension ReactiveReactiveTestFormExt on BuildContext {
-  TestForm? testFormWatch() => ReactiveTestForm.of(this);
+extension ReactiveReactiveLoginOFormExt on BuildContext {
+  LoginOForm? loginOFormWatch() => ReactiveLoginOForm.of(this);
 
-  TestForm? testFormRead() => ReactiveTestForm.of(this, listen: false);
+  LoginOForm? loginOFormRead() => ReactiveLoginOForm.of(this, listen: false);
 }
 
-class TestFormBuilder extends StatefulWidget {
-  const TestFormBuilder({
+class LoginOFormBuilder extends StatefulWidget {
+  const LoginOFormBuilder({
     Key? key,
     this.model,
     this.child,
@@ -112,7 +177,7 @@ class TestFormBuilder extends StatefulWidget {
     this.initState,
   }) : super(key: key);
 
-  final Test? model;
+  final LoginO? model;
 
   final Widget? child;
 
@@ -120,21 +185,21 @@ class TestFormBuilder extends StatefulWidget {
 
   final void Function(FormGroup formGroup, bool didPop)? onPopInvoked;
 
-  final Widget Function(BuildContext context, TestForm formModel, Widget? child)
-      builder;
+  final Widget Function(
+      BuildContext context, LoginOForm formModel, Widget? child) builder;
 
-  final void Function(BuildContext context, TestForm formModel)? initState;
+  final void Function(BuildContext context, LoginOForm formModel)? initState;
 
   @override
-  _TestFormBuilderState createState() => _TestFormBuilderState();
+  _LoginOFormBuilderState createState() => _LoginOFormBuilderState();
 }
 
-class _TestFormBuilderState extends State<TestFormBuilder> {
-  late TestForm _formModel;
+class _LoginOFormBuilderState extends State<LoginOFormBuilder> {
+  late LoginOForm _formModel;
 
   @override
   void initState() {
-    _formModel = TestForm(TestForm.formElements(widget.model), null);
+    _formModel = LoginOForm(LoginOForm.formElements(widget.model), null);
 
     if (_formModel.form.disabled) {
       _formModel.form.markAsDisabled();
@@ -146,7 +211,7 @@ class _TestFormBuilderState extends State<TestFormBuilder> {
   }
 
   @override
-  void didUpdateWidget(covariant TestFormBuilder oldWidget) {
+  void didUpdateWidget(covariant LoginOFormBuilder oldWidget) {
     if (widget.model != oldWidget.model) {
       _formModel.updateValue(widget.model);
     }
@@ -162,7 +227,7 @@ class _TestFormBuilderState extends State<TestFormBuilder> {
 
   @override
   Widget build(BuildContext context) {
-    return ReactiveTestForm(
+    return ReactiveLoginOForm(
       key: ObjectKey(_formModel),
       form: _formModel,
       canPop: widget.canPop,
@@ -179,15 +244,27 @@ class _TestFormBuilderState extends State<TestFormBuilder> {
   }
 }
 
-class TestForm implements FormModel<Test, Test> {
-  TestForm(
+@RfGroup(validators: [MustMatchValidator()])
+class LoginOOutput extends Equatable {
+  final String email;
+  final String password;
+  const LoginOOutput(
+      {@RfControl(validators: [RequiredValidator(), RequiredValidator()])
+      required this.email,
+      @RfControl(validators: [RequiredValidator()]) required this.password});
+  @override
+  List<Object?> get props => [email, password];
+}
+
+class LoginOForm implements FormModel<LoginO, LoginOOutput> {
+  LoginOForm(
     this.form,
     this.path,
   );
 
-  static const String titleControlName = "title";
+  static const String emailControlName = "email";
 
-  static const String descriptionControlName = "description";
+  static const String passwordControlName = "password";
 
   final FormGroup form;
 
@@ -195,49 +272,49 @@ class TestForm implements FormModel<Test, Test> {
 
   final Map<String, bool> _disabled = {};
 
-  String titleControlPath() => pathBuilder(titleControlName);
+  String emailControlPath() => pathBuilder(emailControlName);
 
-  String descriptionControlPath() => pathBuilder(descriptionControlName);
+  String passwordControlPath() => pathBuilder(passwordControlName);
 
-  String get _titleValue => titleControl.value as String;
+  String get _emailValue => emailControl.value as String;
 
-  String? get _descriptionValue => descriptionControl?.value;
+  String get _passwordValue => passwordControl.value as String;
 
-  bool get containsTitle {
+  bool get containsEmail {
     try {
-      form.control(titleControlPath());
+      form.control(emailControlPath());
       return true;
     } catch (e) {
       return false;
     }
   }
 
-  bool get containsDescription {
+  bool get containsPassword {
     try {
-      form.control(descriptionControlPath());
+      form.control(passwordControlPath());
       return true;
     } catch (e) {
       return false;
     }
   }
 
-  Map<String, Object> get titleErrors => titleControl.errors;
+  Map<String, Object>? get emailErrors => emailControl.errors;
 
-  Map<String, Object>? get descriptionErrors => descriptionControl?.errors;
+  Map<String, Object>? get passwordErrors => passwordControl.errors;
 
-  void get titleFocus => form.focus(titleControlPath());
+  void get emailFocus => form.focus(emailControlPath());
 
-  void get descriptionFocus => form.focus(descriptionControlPath());
+  void get passwordFocus => form.focus(passwordControlPath());
 
-  void descriptionRemove({
+  void emailRemove({
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    if (containsDescription) {
+    if (containsEmail) {
       final controlPath = path;
       if (controlPath == null) {
         form.removeControl(
-          descriptionControlName,
+          emailControlName,
           updateParent: updateParent,
           emitEvent: emitEvent,
         );
@@ -246,7 +323,7 @@ class TestForm implements FormModel<Test, Test> {
 
         if (formGroup is FormGroup) {
           formGroup.removeControl(
-            descriptionControlName,
+            emailControlName,
             updateParent: updateParent,
             emitEvent: emitEvent,
           );
@@ -255,99 +332,124 @@ class TestForm implements FormModel<Test, Test> {
     }
   }
 
-  void titleValueUpdate(
-    String value, {
+  void passwordRemove({
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    titleControl.updateValue(value,
-        updateParent: updateParent, emitEvent: emitEvent);
+    if (containsPassword) {
+      final controlPath = path;
+      if (controlPath == null) {
+        form.removeControl(
+          passwordControlName,
+          updateParent: updateParent,
+          emitEvent: emitEvent,
+        );
+      } else {
+        final formGroup = form.control(controlPath);
+
+        if (formGroup is FormGroup) {
+          formGroup.removeControl(
+            passwordControlName,
+            updateParent: updateParent,
+            emitEvent: emitEvent,
+          );
+        }
+      }
+    }
   }
 
-  void descriptionValueUpdate(
+  void emailValueUpdate(
     String? value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    descriptionControl?.updateValue(value,
+    emailControl.updateValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
-  void titleValuePatch(
-    String value, {
-    bool updateParent = true,
-    bool emitEvent = true,
-  }) {
-    titleControl.patchValue(value,
-        updateParent: updateParent, emitEvent: emitEvent);
-  }
-
-  void descriptionValuePatch(
+  void passwordValueUpdate(
     String? value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
-    descriptionControl?.patchValue(value,
+    passwordControl.updateValue(value,
         updateParent: updateParent, emitEvent: emitEvent);
   }
 
-  void titleValueReset(
-    String value, {
+  void emailValuePatch(
+    String? value, {
+    bool updateParent = true,
+    bool emitEvent = true,
+  }) {
+    emailControl.patchValue(value,
+        updateParent: updateParent, emitEvent: emitEvent);
+  }
+
+  void passwordValuePatch(
+    String? value, {
+    bool updateParent = true,
+    bool emitEvent = true,
+  }) {
+    passwordControl.patchValue(value,
+        updateParent: updateParent, emitEvent: emitEvent);
+  }
+
+  void emailValueReset(
+    String? value, {
     bool updateParent = true,
     bool emitEvent = true,
     bool removeFocus = false,
     bool? disabled,
   }) =>
-      titleControl.reset(
+      emailControl.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
 
-  void descriptionValueReset(
+  void passwordValueReset(
     String? value, {
     bool updateParent = true,
     bool emitEvent = true,
     bool removeFocus = false,
     bool? disabled,
   }) =>
-      descriptionControl?.reset(
+      passwordControl.reset(
           value: value, updateParent: updateParent, emitEvent: emitEvent);
 
-  FormControl<String> get titleControl =>
-      form.control(titleControlPath()) as FormControl<String>;
+  FormControl<String> get emailControl =>
+      form.control(emailControlPath()) as FormControl<String>;
 
-  FormControl<String>? get descriptionControl => containsDescription
-      ? form.control(descriptionControlPath()) as FormControl<String>?
-      : null;
+  FormControl<String> get passwordControl =>
+      form.control(passwordControlPath()) as FormControl<String>;
 
-  void titleSetDisabled(
+  void emailSetDisabled(
     bool disabled, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
     if (disabled) {
-      titleControl.markAsDisabled(
+      emailControl.markAsDisabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
     } else {
-      titleControl.markAsEnabled(
+      emailControl.markAsEnabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
     }
   }
 
-  void descriptionSetDisabled(
+  void passwordSetDisabled(
     bool disabled, {
     bool updateParent = true,
     bool emitEvent = true,
   }) {
     if (disabled) {
-      descriptionControl?.markAsDisabled(
+      passwordControl.markAsDisabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
     } else {
-      descriptionControl?.markAsEnabled(
+      passwordControl.markAsEnabled(
         updateParent: updateParent,
         emitEvent: emitEvent,
       );
@@ -355,15 +457,15 @@ class TestForm implements FormModel<Test, Test> {
   }
 
   @override
-  Test get model {
+  LoginOOutput get model {
     final isValid = !currentForm.hasErrors && currentForm.errors.isEmpty;
 
     if (!isValid) {
       debugPrintStack(
           label:
-              '[${path ?? 'TestForm'}]\n┗━ Avoid calling `model` on invalid form. Possible exceptions for non-nullable fields which should be guarded by `required` validator.');
+              '[${path ?? 'LoginOForm'}]\n┗━ Avoid calling `model` on invalid form. Possible exceptions for non-nullable fields which should be guarded by `required` validator.');
     }
-    return Test(title: _titleValue, description: _descriptionValue);
+    return LoginOOutput(email: _emailValue, password: _passwordValue);
   }
 
   @override
@@ -400,7 +502,7 @@ class TestForm implements FormModel<Test, Test> {
 
   @override
   void submit({
-    required void Function(Test model) onValid,
+    required void Function(LoginOOutput model) onValid,
     void Function()? onNotValid,
   }) {
     currentForm.markAllAsTouched();
@@ -417,16 +519,16 @@ class TestForm implements FormModel<Test, Test> {
 
   @override
   void updateValue(
-    Test? value, {
+    LoginO? value, {
     bool updateParent = true,
     bool emitEvent = true,
   }) =>
-      form.updateValue(TestForm.formElements(value).rawValue,
+      form.updateValue(LoginOForm.formElements(value).rawValue,
           updateParent: updateParent, emitEvent: emitEvent);
 
   @override
   void reset({
-    Test? value,
+    LoginO? value,
     bool updateParent = true,
     bool emitEvent = true,
   }) =>
@@ -438,31 +540,33 @@ class TestForm implements FormModel<Test, Test> {
   String pathBuilder(String? pathItem) =>
       [path, pathItem].whereType<String>().join(".");
 
-  static FormGroup formElements(Test? test) => FormGroup({
-        titleControlName: FormControl<String>(
-            value: test?.title,
-            validators: [],
+  static FormGroup formElements(LoginO? loginO) => FormGroup({
+        emailControlName: FormControl<String>(
+            value: loginO?.email,
+            validators: [RequiredValidator(), RequiredValidator()],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false),
-        descriptionControlName: FormControl<String>(
-            value: test?.description,
-            validators: [],
+        passwordControlName: FormControl<String>(
+            value: loginO?.password,
+            validators: [RequiredValidator()],
             asyncValidators: [],
             asyncValidatorsDebounceTime: 250,
             disabled: false,
             touched: false)
       },
-          validators: [],
+          validators: [
+            MustMatchValidator()
+          ],
           asyncValidators: [],
           asyncValidatorsDebounceTime: 250,
           disabled: false);
 }
 
-class ReactiveTestFormArrayBuilder<ReactiveTestFormArrayBuilderT>
+class ReactiveLoginOFormArrayBuilder<ReactiveLoginOFormArrayBuilderT>
     extends StatelessWidget {
-  const ReactiveTestFormArrayBuilder({
+  const ReactiveLoginOFormArrayBuilder({
     Key? key,
     this.control,
     this.formControl,
@@ -472,26 +576,27 @@ class ReactiveTestFormArrayBuilder<ReactiveTestFormArrayBuilderT>
             "You have to specify `control` or `formControl`!"),
         super(key: key);
 
-  final FormArray<ReactiveTestFormArrayBuilderT>? formControl;
+  final FormArray<ReactiveLoginOFormArrayBuilderT>? formControl;
 
-  final FormArray<ReactiveTestFormArrayBuilderT>? Function(TestForm formModel)?
-      control;
+  final FormArray<ReactiveLoginOFormArrayBuilderT>? Function(
+      LoginOForm formModel)? control;
 
   final Widget Function(
-      BuildContext context, List<Widget> itemList, TestForm formModel)? builder;
+          BuildContext context, List<Widget> itemList, LoginOForm formModel)?
+      builder;
 
   final Widget Function(BuildContext context, int i,
-      ReactiveTestFormArrayBuilderT? item, TestForm formModel) itemBuilder;
+      ReactiveLoginOFormArrayBuilderT? item, LoginOForm formModel) itemBuilder;
 
   @override
   Widget build(BuildContext context) {
-    final formModel = ReactiveTestForm.of(context);
+    final formModel = ReactiveLoginOForm.of(context);
 
     if (formModel == null) {
       throw FormControlParentNotFoundException(this);
     }
 
-    return ReactiveFormArray<ReactiveTestFormArrayBuilderT>(
+    return ReactiveFormArray<ReactiveLoginOFormArrayBuilderT>(
       formArray: formControl ?? control?.call(formModel),
       builder: (context, formArray, child) {
         final values = formArray.controls.map((e) => e.value).toList();
@@ -522,9 +627,9 @@ class ReactiveTestFormArrayBuilder<ReactiveTestFormArrayBuilderT>
   }
 }
 
-class ReactiveTestFormFormGroupArrayBuilder<
-    ReactiveTestFormFormGroupArrayBuilderT> extends StatelessWidget {
-  const ReactiveTestFormFormGroupArrayBuilder({
+class ReactiveLoginOFormFormGroupArrayBuilder<
+    ReactiveLoginOFormFormGroupArrayBuilderT> extends StatelessWidget {
+  const ReactiveLoginOFormFormGroupArrayBuilder({
     Key? key,
     this.extended,
     this.getExtended,
@@ -535,24 +640,25 @@ class ReactiveTestFormFormGroupArrayBuilder<
         super(key: key);
 
   final ExtendedControl<List<Map<String, Object?>?>,
-      List<ReactiveTestFormFormGroupArrayBuilderT>>? extended;
+      List<ReactiveLoginOFormFormGroupArrayBuilderT>>? extended;
 
   final ExtendedControl<List<Map<String, Object?>?>,
-          List<ReactiveTestFormFormGroupArrayBuilderT>>
-      Function(TestForm formModel)? getExtended;
+          List<ReactiveLoginOFormFormGroupArrayBuilderT>>
+      Function(LoginOForm formModel)? getExtended;
 
   final Widget Function(
-      BuildContext context, List<Widget> itemList, TestForm formModel)? builder;
+          BuildContext context, List<Widget> itemList, LoginOForm formModel)?
+      builder;
 
   final Widget Function(
       BuildContext context,
       int i,
-      ReactiveTestFormFormGroupArrayBuilderT? item,
-      TestForm formModel) itemBuilder;
+      ReactiveLoginOFormFormGroupArrayBuilderT? item,
+      LoginOForm formModel) itemBuilder;
 
   @override
   Widget build(BuildContext context) {
-    final formModel = ReactiveTestForm.of(context);
+    final formModel = ReactiveLoginOForm.of(context);
 
     if (formModel == null) {
       throw FormControlParentNotFoundException(this);
@@ -564,7 +670,7 @@ class ReactiveTestFormFormGroupArrayBuilder<
       stream: value.control.valueChanges,
       builder: (context, snapshot) {
         final itemList =
-            (value.value() ?? <ReactiveTestFormFormGroupArrayBuilderT>[])
+            (value.value() ?? <ReactiveLoginOFormFormGroupArrayBuilderT>[])
                 .asMap()
                 .map((i, item) => MapEntry(
                       i,
@@ -588,3 +694,4 @@ class ReactiveTestFormFormGroupArrayBuilder<
     );
   }
 }
+''';

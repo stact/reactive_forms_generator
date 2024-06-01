@@ -179,7 +179,7 @@ class _ProfileFormBuilderState extends State<ProfileFormBuilder> {
   }
 }
 
-class ProfileForm implements FormModel<Profile> {
+class ProfileForm implements FormModel<Profile, Profile> {
   ProfileForm(
     this.form,
     this.path,
@@ -1066,7 +1066,8 @@ class ProfileForm implements FormModel<Profile> {
           disabled: false);
 }
 
-class IncidenceFilterForm implements FormModel<IncidenceFilter> {
+class IncidenceFilterForm
+    implements FormModel<IncidenceFilter, IncidenceFilter> {
   IncidenceFilterForm(
     this.form,
     this.path,
@@ -1641,7 +1642,8 @@ class IncidenceFilterForm implements FormModel<IncidenceFilter> {
           disabled: false);
 }
 
-class ThresholdSettingForm implements FormModel<ThresholdSetting> {
+class ThresholdSettingForm
+    implements FormModel<ThresholdSetting, ThresholdSetting> {
   ThresholdSettingForm(
     this.form,
     this.path,
@@ -1896,7 +1898,7 @@ class ThresholdSettingForm implements FormModel<ThresholdSetting> {
           disabled: false);
 }
 
-class TimerSettingForm implements FormModel<TimerSetting> {
+class TimerSettingForm implements FormModel<TimerSetting, TimerSetting> {
   TimerSettingForm(
     this.form,
     this.path,

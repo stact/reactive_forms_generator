@@ -1,6 +1,4 @@
 // ignore_for_file: implementation_imports
-import 'package:analyzer/dart/ast/token.dart';
-import 'package:analyzer/src/dart/ast/token.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
@@ -431,7 +429,7 @@ class FormGenerator {
 
           b
             ..name = 'model'
-            ..returns = Reference(element.fullTypeName)
+            ..returns = Reference(element.fullTypeNameOutput)
             ..annotations.add(const CodeExpression(Code('override')))
             ..type = MethodType.getter
             ..body = Code('''
@@ -440,7 +438,7 @@ class FormGenerator {
               if (!isValid) {
                 debugPrintStack(label: '[\${path ?? '$classNameFull'}]\\n┗━ Avoid calling `model` on invalid form. Possible exceptions for non-nullable fields which should be guarded by `required` validator.');
               }
-              return ${element.fullTypeName}(${parameterValues.join(', ')});
+              return ${element.fullTypeNameOutput}(${parameterValues.join(', ')});
             ''');
         },
       );
@@ -553,7 +551,7 @@ class FormGenerator {
                     ..named = true
                     ..required = true
                     ..type = Reference(
-                        'void Function(${element.fullTypeName} model)'),
+                        'void Function(${element.fullTypeNameOutput} model)'),
                 ),
                 Parameter(
                   (b) => b
@@ -639,8 +637,6 @@ class FormGenerator {
       rfAnnotationCollectorVisitor.annotationsToRemove,
     );
 
-    print(modifiedCode);
-
     return Code(modifiedCode);
   }
 
@@ -651,7 +647,8 @@ class FormGenerator {
         (b) => b
           ..name = className
           ..types.addAll(element.fullGenericTypes)
-          ..implements.add(Reference('FormModel<${element.fullTypeName}>'))
+          ..implements.add(Reference(
+              'FormModel<${element.fullTypeName}, ${element.fullTypeNameOutput}>'))
           ..fields.addAll(
             [
               ...staticFieldNameList,
@@ -826,57 +823,70 @@ class FormGenerator {
     );
   }
 
-  Iterable<Method> get fieldContainsMethodList =>
-      all.map((e) => ContainsMethod(e).method()).whereType<Method>();
+  Iterable<Method> get fieldContainsMethodList => all
+      .map((e) => ContainsMethod(e, element.output).method())
+      .whereType<Method>();
 
-  Iterable<Method> get fieldValueMethodList =>
-      all.map((e) => FieldValueMethod(e).method()).whereType<Method>();
+  Iterable<Method> get fieldValueMethodList => all
+      .map((e) => FieldValueMethod(e, element.output).method())
+      .whereType<Method>();
 
-  Iterable<Method> get fieldControlNameMethodList =>
-      all.map((e) => ControlPathMethod(e).method()).whereType<Method>();
+  Iterable<Method> get fieldControlNameMethodList => all
+      .map((e) => ControlPathMethod(e, element.output).method())
+      .whereType<Method>();
 
   Iterable<Field> get staticFieldNameList =>
       annotatedParameters.map(staticFieldName);
 
-  Iterable<Method> get fieldErrorsMethodList =>
-      all.map((e) => ErrorsMethod(e).method()).whereType<Method>();
+  Iterable<Method> get fieldErrorsMethodList => all
+      .map((e) => ErrorsMethod(e, element.output).method())
+      .whereType<Method>();
 
   Iterable<Field> get fieldNameList => annotatedParameters.map(field);
 
-  Iterable<Method> get fieldFocusMethodList =>
-      all.map((e) => FocusMethod(e).method()).whereType<Method>();
+  Iterable<Method> get fieldFocusMethodList => all
+      .map((e) => FocusMethod(e, element.output).method())
+      .whereType<Method>();
 
-  Iterable<Method> get fieldRemoveMethodList =>
-      all.map((e) => RemoveMethod(e).method()).whereType<Method>();
+  Iterable<Method> get fieldRemoveMethodList => all
+      .map((e) => RemoveMethod(e, element.output).method())
+      .whereType<Method>();
 
   Iterable<Method> get fieldUpdateMethodList => all
-      .map((e) => ReactiveFormUpdateValueMethod(e).method())
+      .map((e) => ReactiveFormUpdateValueMethod(e, element.output).method())
       .whereType<Method>();
 
-  Iterable<Method> get fieldInsertMethodList =>
-      all.map((e) => ReactiveFormInsertMethod(e).method()).whereType<Method>();
+  Iterable<Method> get fieldInsertMethodList => all
+      .map((e) => ReactiveFormInsertMethod(e, element.output).method())
+      .whereType<Method>();
 
-  Iterable<Method> get fieldClearMethodList =>
-      all.map((e) => ReactiveFormClearMethod(e).method()).whereType<Method>();
+  Iterable<Method> get fieldClearMethodList => all
+      .map((e) => ReactiveFormClearMethod(e, element.output).method())
+      .whereType<Method>();
 
   Iterable<Method> get fieldPatchMethodList => all
-      .map((e) => ReactiveFormPatchValueMethod(e).method())
+      .map((e) => ReactiveFormPatchValueMethod(e, element.output).method())
       .whereType<Method>();
 
-  Iterable<Method> get fieldResetMethodList =>
-      all.map((e) => ResetMethod(e).method()).whereType<Method>();
+  Iterable<Method> get fieldResetMethodList => all
+      .map((e) => ResetMethod(e, element.output).method())
+      .whereType<Method>();
 
-  Iterable<Method> get controlMethodList =>
-      all.map((e) => ControlMethod(e).method()).whereType<Method>();
+  Iterable<Method> get controlMethodList => all
+      .map((e) => ControlMethod(e, element.output).method())
+      .whereType<Method>();
 
-  Iterable<Method> get controlPrivateMethodList =>
-      all.map((e) => ControlPrivateMethod(e).method()).whereType<Method>();
+  Iterable<Method> get controlPrivateMethodList => all
+      .map((e) => ControlPrivateMethod(e, element.output).method())
+      .whereType<Method>();
 
-  Iterable<Method> get controlSetDisabledMethodList =>
-      all.map((e) => ControlSetDisableMethod(e).method()).whereType<Method>();
+  Iterable<Method> get controlSetDisabledMethodList => all
+      .map((e) => ControlSetDisableMethod(e, element.output).method())
+      .whereType<Method>();
 
-  Iterable<Method> get extendedControlMethodList =>
-      all.map((e) => ExtendedControlMethod(e).method()).whereType<Method>();
+  Iterable<Method> get extendedControlMethodList => all
+      .map((e) => ExtendedControlMethod(e, element.output).method())
+      .whereType<Method>();
 
   Iterable<Method> get addArrayControlMethodList =>
       formArrays.map(addArrayControl);

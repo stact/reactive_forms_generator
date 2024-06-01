@@ -185,7 +185,7 @@ class _ArrayNullableFormBuilderState extends State<ArrayNullableFormBuilder> {
   }
 }
 
-class ArrayNullableForm implements FormModel<ArrayNullable> {
+class ArrayNullableForm implements FormModel<ArrayNullable, ArrayNullable> {
   ArrayNullableForm(
     this.form,
     this.path,

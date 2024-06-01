@@ -7,6 +7,7 @@ import 'package:example/docs/freezed/freezed_form.dart';
 import 'package:example/docs/generic/generic_form.dart';
 import 'package:example/docs/group/group_form.dart';
 import 'package:example/docs/login/login_form.dart';
+import 'package:example/docs/login/login_output_form.dart';
 import 'package:example/docs/login_extended/login_extended_form.dart';
 import 'package:example/docs/login_extended_nullable/login_extended_nullable_form.dart';
 import 'package:example/docs/mailing_list/mailing_list_form.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         Routes.loginExtended: (_) => const LoginExtendedFormWidget(),
         Routes.login: (_) => const LoginFormWidget(),
+        Routes.loginOutput: (_) => const LoginOutputFormWidget(),
         Routes.annotateless: (_) => const AnnotatelessFormWidget(),
         Routes.mailingList: (_) => const MailingListFormWidget(),
         Routes.userProfile: (_) => const UserProfileFormWidget(),
@@ -59,6 +61,8 @@ class Routes {
   static const loginExtended = '/login-extended';
 
   static const login = '/login';
+
+  static const loginOutput = '/login-output';
 
   static const annotateless = '/annotateless';
 

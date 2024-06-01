@@ -30,26 +30,24 @@ void main() {
               }
             }
             
-            @Rf(
-              output: true,
-            )
+            @Rf()
             @RfGroup(
               validators: [MustMatchValidator()],
             )
             class Login {
-              final String? email;
+              final String email;
             
-              final String? password;
+              final String password;
             
               const Login({
                 @RfControl(
                   validators: [RequiredValidator(), RequiredValidator()],
                 )
-                    this.email,
+                    this.email = '',
                 @RfControl(
                   validators: [RequiredValidator()],
                 )
-                    this.password,
+                    this.password = '',
               });
             }
           ''',
@@ -241,7 +239,7 @@ class _LoginFormBuilderState extends State<LoginFormBuilder> {
   }
 }
 
-class LoginForm implements FormModel<Login> {
+class LoginForm implements FormModel<Login, Login> {
   LoginForm(
     this.form,
     this.path,

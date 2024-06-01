@@ -185,7 +185,7 @@ class _SomeWiredNameFormBuilderState extends State<SomeWiredNameFormBuilder> {
   }
 }
 
-class SomeWiredNameForm implements FormModel<RenamedBasic> {
+class SomeWiredNameForm implements FormModel<RenamedBasic, RenamedBasic> {
   SomeWiredNameForm(
     this.form,
     this.path,

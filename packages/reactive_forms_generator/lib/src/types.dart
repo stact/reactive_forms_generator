@@ -1,5 +1,7 @@
+// ignore_for_file: implementation_imports
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
+import 'package:reactive_forms_generator/src/form_elements/form_element_generator.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:analyzer/src/dart/element/element.dart';
 import 'package:analyzer/src/dart/ast/ast.dart';
@@ -23,6 +25,15 @@ const formGroupChecker = TypeChecker.fromUrl(
 extension LibraryReaderExt on LibraryReader {
   Iterable<AnnotatedElement> get rfAnnotated {
     return annotatedWith(_formChecker);
+  }
+}
+
+extension MapExt on Map<String, String> {
+  bool get hasRequiredValidator {
+    return containsKey(FormElementGenerator.validatorKey) &&
+        this[FormElementGenerator.validatorKey]
+                ?.contains('RequiredValidator()') ==
+            true;
   }
 }
 

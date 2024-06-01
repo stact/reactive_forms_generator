@@ -10,7 +10,6 @@ import 'package:reactive_forms_generator/src/reactive_forms/reactive_form_consum
 import 'package:reactive_forms_generator/src/reactive_forms/reactive_form_extension.dart';
 import 'package:reactive_forms_generator/src/reactive_forms/reactive_form_group_array_builder.dart';
 import 'package:reactive_forms_generator/src/reactive_forms/reactive_inherited_streamer.dart';
-import 'package:reactive_forms_generator/src/types.dart';
 
 const stringRef = Reference('String');
 const formGroupRef = Reference('FormGroup');

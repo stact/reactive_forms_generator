@@ -183,7 +183,7 @@ class _MailingListFormBuilderState extends State<MailingListFormBuilder> {
   }
 }
 
-class MailingListForm implements FormModel<MailingList> {
+class MailingListForm implements FormModel<MailingList, MailingList> {
   MailingListForm(
     this.form,
     this.path,

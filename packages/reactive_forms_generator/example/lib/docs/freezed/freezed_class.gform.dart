@@ -185,7 +185,7 @@ class _FreezedClassFormBuilderState extends State<FreezedClassFormBuilder> {
   }
 }
 
-class FreezedClassForm implements FormModel<FreezedClass> {
+class FreezedClassForm implements FormModel<FreezedClass, FreezedClass> {
   FreezedClassForm(
     this.form,
     this.path,

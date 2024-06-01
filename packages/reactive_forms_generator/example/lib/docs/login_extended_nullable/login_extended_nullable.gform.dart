@@ -187,7 +187,8 @@ class _LoginExtendedNullableFormBuilderState
   }
 }
 
-class LoginExtendedNullableForm implements FormModel<LoginExtendedNullable> {
+class LoginExtendedNullableForm
+    implements FormModel<LoginExtendedNullable, LoginExtendedNullable> {
   LoginExtendedNullableForm(
     this.form,
     this.path,
