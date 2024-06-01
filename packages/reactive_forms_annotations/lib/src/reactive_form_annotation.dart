@@ -5,7 +5,7 @@ class ReactiveFormAnnotation {
 
   const ReactiveFormAnnotation({
     this.name,
-    this.output = false,
+    this.output = true,
     this.requiredValidatorName = 'RequiredValidator',
   });
 }

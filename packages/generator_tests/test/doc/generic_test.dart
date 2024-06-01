@@ -20,7 +20,7 @@ void main() {
             part '$fileName.gform.dart';
             
             @freezed
-            @Rf()
+            @Rf(output: false)
             class Tags<T> with _$Tags<T> {
               factory Tags({
                 @RfControl() required List<T>? tags,

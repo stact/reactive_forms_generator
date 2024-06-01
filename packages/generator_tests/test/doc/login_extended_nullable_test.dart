@@ -21,7 +21,7 @@ void main() {
             
             enum UserMode { user, admin }
             
-            @Rf()
+            @Rf(output: false)
             class LoginExtendedNullable {
               final String? email;
             

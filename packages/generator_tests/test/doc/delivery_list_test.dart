@@ -20,7 +20,7 @@ void main() {
             
             part '$fileName.gform.dart';
             
-            @Rf()
+            @Rf(output: false)
             class DeliveryList {
               final List<DeliveryPoint> deliveryList;
               final List<Client>? clientList;
@@ -31,7 +31,7 @@ void main() {
               });
             }
             
-            @Rf(name: 'StandaloneDeliveryPoint')
+            @Rf(output: false, name: 'StandaloneDeliveryPoint')
             @RfGroup()
             class DeliveryPoint {
               final String name;

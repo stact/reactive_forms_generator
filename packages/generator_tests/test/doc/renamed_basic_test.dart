@@ -21,7 +21,7 @@ void main() {
             
             part '$fileName.gform.dart';
             
-            @Rf(name: 'SomeWiredName')
+            @Rf(output: false, name: 'SomeWiredName')
             class RenamedBasic {
               final String email;
             

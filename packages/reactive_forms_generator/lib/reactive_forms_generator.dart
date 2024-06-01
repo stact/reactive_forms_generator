@@ -47,6 +47,8 @@ class ReactiveFormsGenerator extends Generator {
         )),
     );
 
+    // final x = lib.accept(emitter).toString();
+
     final generatedValue =
         DartFormatter().format(lib.accept(emitter).toString());
 

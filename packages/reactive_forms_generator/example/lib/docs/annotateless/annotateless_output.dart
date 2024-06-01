@@ -3,9 +3,7 @@ import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
 
 part 'annotateless_output.gform.dart';
 
-@Rf(
-  output: true,
-)
+@Rf(output: true)
 class AnnotatelessO extends Equatable {
   final String email;
 

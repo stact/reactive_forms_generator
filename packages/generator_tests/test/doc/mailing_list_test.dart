@@ -29,7 +29,7 @@ void main() {
               }
             }
             
-            @Rf()
+            @Rf(output: false)
             class MailingList {
               final List<String?> emailList;
             

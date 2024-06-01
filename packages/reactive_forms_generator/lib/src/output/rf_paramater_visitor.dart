@@ -10,7 +10,7 @@ import 'package:reactive_forms_generator/src/output/rf_annotation_visitor.dart';
 
 class RfParameterVisitor extends RecursiveAstVisitor<dynamic> {
   final Map<String, FieldDeclaration> fieldDeclaration = {};
-  final Map<String, DefaultFormalParameter> fieldFormalParameter = {};
+  final Map<String, FormalParameter> fieldFormalParameter = {};
 
   @override
   visitFieldDeclaration(FieldDeclaration node) {
@@ -21,26 +21,82 @@ class RfParameterVisitor extends RecursiveAstVisitor<dynamic> {
     super.visitFieldDeclaration(node);
   }
 
+  // @override
+  // visitFieldFormalParameterList(FieldFormalParameter node) {
+  //   node.visitChildren(this);
+  //   return null;
+  // }
+
+  // @override
+  // visitSimpleFormalParameter(SimpleFormalParameter node) {
+  //   final rfAnnotationVisitor = RfAnnotationVisitor();
+  //   final rfAnnotationArguments = RfAnnotationArgumentsVisitor();
+  //   node.visitChildren(rfAnnotationVisitor);
+  //
+  //   //   if (rfAnnotationVisitor.rfAnnotation != null) {
+  //   //     node.accept(rfAnnotationArguments);
+  //   //   }
+  //   //
+  //   //   if (rfAnnotationArguments.arguments.containsKey('validators') &&
+  //   //       rfAnnotationArguments.arguments['validators']
+  //   //               ?.contains('RequiredValidator()') ==
+  //   //           true) {
+  //   //     fieldFormalParameter[node.name.toString()] = node;
+  //   //   }
+  //   //
+  //   node.visitChildren(this);
+  //   return null;
+  // }
+
+  // @override
+  // visitFieldFormalParameter(FieldFormalParameter node) {
+  //   node.visitChildren(this);
+  //   return null;
+  // }
+
   @override
-  visitDefaultFormalParameter(DefaultFormalParameter node) {
-    final rfAnnotationVisitor = RfAnnotationVisitor();
-    final rfAnnotationArguments = RfAnnotationArgumentsVisitor();
-    node.accept(rfAnnotationVisitor);
+  visitFormalParameterList(FormalParameterList node) {
+    for (var e in node.parameters) {
+      final rfAnnotationVisitor = RfAnnotationVisitor();
+      final rfAnnotationArguments = RfAnnotationArgumentsVisitor();
+      e.visitChildren(rfAnnotationVisitor);
 
-    if (rfAnnotationVisitor.rfAnnotation != null) {
-      node.accept(rfAnnotationArguments);
-    }
+      if (rfAnnotationVisitor.rfAnnotation != null) {
+        e.visitChildren(rfAnnotationArguments);
+      }
 
-    if (rfAnnotationArguments.arguments.containsKey('validators') &&
-        rfAnnotationArguments.arguments['validators']
-                ?.contains('RequiredValidator()') ==
-            true) {
-      fieldFormalParameter[node.name.toString()] = node;
+      if (rfAnnotationArguments.arguments.containsKey('validators') &&
+          rfAnnotationArguments.arguments['validators']
+                  ?.contains('RequiredValidator()') ==
+              true) {
+        fieldFormalParameter[e.name.toString()] = e;
+      }
     }
 
     node.visitChildren(this);
     return null;
   }
+
+// @override
+// visitDefaultFormalParameter(DefaultFormalParameter node) {
+//   final rfAnnotationVisitor = RfAnnotationVisitor();
+//   final rfAnnotationArguments = RfAnnotationArgumentsVisitor();
+//   node.visitChildren(rfAnnotationVisitor);
+//
+//   if (rfAnnotationVisitor.rfAnnotation != null) {
+//     node.accept(rfAnnotationArguments);
+//   }
+//
+//   if (rfAnnotationArguments.arguments.containsKey('validators') &&
+//       rfAnnotationArguments.arguments['validators']
+//               ?.contains('RequiredValidator()') ==
+//           true) {
+//     fieldFormalParameter[node.name.toString()] = node;
+//   }
+//
+//   node.visitChildren(this);
+//   return null;
+// }
 }
 
 class RfEParameterVisitor extends RecursiveElementVisitor<dynamic> {

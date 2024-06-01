@@ -58,7 +58,7 @@ void main() {
             }
             
             @freezed
-            @Rf()
+            @Rf(output: false)
             class Profile with _\$Profile {
               const Profile._();
             

@@ -20,7 +20,7 @@ void main() {
             
             part '$fileName.gform.dart';
             
-            @Rf()
+            @Rf(output: false)
             class UserProfile {
               final String id;
             

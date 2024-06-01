@@ -17,7 +17,7 @@ void main() {
             
             part '$fileName.gform.dart';
             
-            @Rf()
+            @Rf(output: false)
             class StatusList<T extends Enum> {
               final List<T?> list;
             

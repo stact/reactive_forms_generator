@@ -1,7 +1,61 @@
-// coverage:ignore-file
+@Timeout(Duration(seconds: 145))
+import 'package:test/test.dart';
+
+import '../helpers.dart';
+
+const fileName = 'freezed_class_output';
+
+void main() {
+  group('reactive_forms_generator', () {
+    test(
+      'Freezed support',
+      () async {
+        return testGenerator(
+          fileName: fileName,
+          model: '''
+            import 'package:flutter/material.dart';
+            import 'package:reactive_forms/reactive_forms.dart';
+            import 'package:reactive_forms/src/validators/required_validator.dart';
+            import 'package:reactive_forms_annotations/reactive_forms_annotations.dart';
+            import 'package:freezed_annotation/freezed_annotation.dart';
+            import 'package:example/helpers.dart';
+            
+            part '$fileName.gform.dart';
+            part '$fileName.g.dart';
+            part '$fileName.freezed.dart';
+            
+            @freezed
+            @Rf(output: true)
+            class FreezedClassO with _\$FreezedClassO {
+              FreezedClassO._();
+            
+              factory FreezedClassO(
+                @RfControl<String>() String? gender,
+                @RfControl(validators: [RequiredValidator()]) String? genderR, {
+                @RfControl() String? id,
+                @RfControl(validators: [RequiredValidator()]) String? idR,
+                @RfControl<String>() String? name,
+                @JsonKey(name: 'logo_image') @RfControl<String>() String? logoImage,
+                @RfControl<double>() double? year,
+              }) = _FreezedClassO;
+            
+              factory FreezedClassO.fromJson(Map<String, dynamic> json) =>
+                  _\$FreezedClassOFromJson(json);
+            
+              bool method() => false;
+            }
+          ''',
+          generatedFile: generatedFile,
+        );
+      },
+    );
+  });
+}
+
+const generatedFile = r'''// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+// ignore_for_file:
 
 part of 'freezed_class.dart';
 
@@ -185,7 +239,7 @@ class _FreezedClassFormBuilderState extends State<FreezedClassFormBuilder> {
   }
 }
 
-class FreezedClassForm implements FormModel<FreezedClass, FreezedClass> {
+class FreezedClassForm implements FormModel<FreezedClass> {
   FreezedClassForm(
     this.form,
     this.path,
@@ -933,3 +987,4 @@ class ReactiveFreezedClassFormFormGroupArrayBuilder<
     );
   }
 }
+''';

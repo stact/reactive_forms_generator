@@ -19,7 +19,7 @@ void main() {
             
             part '$fileName.gform.dart';
             
-            @Rf()
+            @Rf(output: false)
             class Annotateless {
               final String email;
             

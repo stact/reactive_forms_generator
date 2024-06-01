@@ -25,7 +25,7 @@ void main() {
             part '$fileName.freezed.dart';
             
             @freezed
-            @Rf()
+            @Rf(output: false)
             class FreezedClass with _\$FreezedClass {
               FreezedClass._();
             

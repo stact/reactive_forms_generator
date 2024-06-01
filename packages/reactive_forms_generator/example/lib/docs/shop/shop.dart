@@ -6,7 +6,7 @@
 //
 // part 'shop.gform.dart';
 //
-// @Rf()
+// @Rf(output: false)
 // class Shop extends Equatable {
 //   final Address? shopAddress;
 //   final List<Client>? clientList;

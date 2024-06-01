@@ -30,7 +30,7 @@ void main() {
               }
             }
             
-            @Rf()
+            @Rf(output: false)
             @RfGroup(
               validators: [MustMatchValidator()],
             )
