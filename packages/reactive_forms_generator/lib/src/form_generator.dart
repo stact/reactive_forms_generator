@@ -1,19 +1,22 @@
+// ignore_for_file: implementation_imports
+import 'package:analyzer/dart/ast/token.dart';
+import 'package:analyzer/src/dart/ast/token.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
-
-// ignore: implementation_imports
 import 'package:analyzer/src/dart/element/element.dart' as e;
-
-// ignore: implementation_imports
 import 'package:analyzer/src/dart/element/type.dart' as t;
-
-// ignore: implementation_imports
+import 'package:analyzer/src/dart/ast/ast.dart' as u;
 import 'package:analyzer/src/generated/utilities_dart.dart' as u;
 import 'package:code_builder/code_builder.dart';
 import 'package:reactive_forms_generator/src/extensions.dart';
 import 'package:reactive_forms_generator/src/form_elements/form_array_generator.dart';
 import 'package:reactive_forms_generator/src/form_elements/form_group_generator.dart';
+import 'package:reactive_forms_generator/src/output/extensions.dart';
+import 'package:reactive_forms_generator/src/output/helpers.dart';
+import 'package:reactive_forms_generator/src/output/rf_annotation_arguments_visitor.dart';
+import 'package:reactive_forms_generator/src/output/rf_annotation_collecotor_visitor.dart';
+import 'package:reactive_forms_generator/src/output/rf_paramater_visitor.dart';
 import 'package:reactive_forms_generator/src/reactive_forms/reactive_form_update_value_method.dart';
 import 'package:reactive_forms_generator/src/reactive_forms/reactive_forms_clear_method.dart';
 import 'package:reactive_forms_generator/src/reactive_forms/reactive_forms_insert_method.dart';
@@ -57,6 +60,15 @@ class FormGenerator {
     }
     return element.name;
   }
+
+  // bool get hasOutput {
+  //   if (element.hasRfAnnotation && root == element) {
+  //     final annotation = element.rfAnnotation;
+  //     return annotation?.getField('output')?.toBoolValue() ?? false;
+  //   }
+  //
+  //   return false;
+  // }
 
   FormGenerator(this.root, this.element, this.type) {
     for (var e in formGroups) {
@@ -603,8 +615,38 @@ class FormGenerator {
     return displayType;
   }
 
-  List<Spec> get generate {
+  Future<Code> test() async {
+    final ast = await element.clone();
+
+    var rfParameterVisitor = RfParameterVisitor();
+    var rfAnnotationCollectorVisitor = RfAnnotationCollectorVisitor();
+    ast.visitChildren(rfParameterVisitor);
+
+    replaceR(
+      rfParameterVisitor.fieldDeclaration,
+      rfParameterVisitor.fieldFormalParameter,
+    );
+
+    final astDeclaration = ast as u.ClassDeclarationImpl;
+    ast.accept(
+      ClassRenameVisitor(astDeclaration.name.lexeme),
+    );
+
+    astDeclaration.visitChildren(rfAnnotationCollectorVisitor);
+
+    final modifiedCode = generateModifiedCode(
+      astDeclaration.parent?.toSource() ?? '',
+      rfAnnotationCollectorVisitor.annotationsToRemove,
+    );
+
+    print(modifiedCode);
+
+    return Code(modifiedCode);
+  }
+
+  Future<List<Spec>> get generate async {
     return [
+      if (element.output) await test(),
       Class(
         (b) => b
           ..name = className
@@ -724,9 +766,13 @@ class FormGenerator {
             ],
           ),
       ),
-      ...formGroupGenerators.values.map((e) => e.generate).expand((e) => e),
-      ...nestedFormGroupGenerators.values
-          .map((e) => e.generate)
+      ...(await Future.wait(
+        formGroupGenerators.values.map((e) => e.generate),
+      ))
+          .expand((e) => e),
+      ...(await Future.wait(
+        nestedFormGroupGenerators.values.map((e) => e.generate),
+      ))
           .expand((e) => e),
     ];
   }

@@ -14,7 +14,7 @@ extension ConstructorElementExt on ConstructorElement {
 }
 
 extension ClassElementExt on ClassElement {
-  String get fullTypeName => thisType.toString();
+  String get fullTypeName => '${thisType.toString()}${output ? 'Output' : ''}';
 
   String get generics {
     final generics = genericTypes.map((e) => e.symbol).join(', ');

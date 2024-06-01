@@ -3,6 +3,7 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:reactive_forms_generator/src/extensions.dart';
 import 'package:reactive_forms_generator/src/reactive_form_generator_method.dart';
+import 'package:reactive_forms_generator/src/types.dart';
 
 class FieldValueMethod extends ReactiveFormGeneratorMethod {
   FieldValueMethod(super.field);
@@ -38,6 +39,8 @@ class FieldValueMethod extends ReactiveFormGeneratorMethod {
 
   @override
   Method? defaultMethod() {
+    final x = field.annotationParams(formControlCheckerRf);
+
     String code = '${field.fieldControlName}${field.nullabilitySuffix}.value';
     String codeTypeCast = ' as ${field.type}';
 

@@ -1,3 +1,5 @@
+// ignore_for_file: implementation_imports
+
 library reactive_forms_generator;
 
 import 'dart:async';
@@ -9,8 +11,6 @@ import 'package:dart_style/dart_style.dart';
 import 'package:reactive_forms_generator/src/extensions.dart';
 import 'package:reactive_forms_generator/src/types.dart';
 import 'package:source_gen/source_gen.dart';
-
-// ignore: implementation_imports
 import 'package:source_gen/src/output_helpers.dart';
 
 import 'src/library_builder.dart';
@@ -31,7 +31,7 @@ class ReactiveFormsGenerator extends Generator {
 
     for (var annotatedElement in library.rfAnnotated) {
       specList.addAll(
-        generateForAnnotatedElement(
+        await generateForAnnotatedElement(
           annotatedElement.element,
           annotatedElement.annotation,
           buildStep,
@@ -59,17 +59,17 @@ class ReactiveFormsGenerator extends Generator {
     return values.join('\n\n');
   }
 
-  List<Spec> generateForAnnotatedElement(
+  Future<List<Spec>> generateForAnnotatedElement(
     Element element,
     ConstantReader annotation,
     BuildStep buildStep,
-  ) {
+  ) async {
     throwIf(
       element is! ClassElement,
       '${element.name} is not a class element',
       element: element,
     );
 
-    return generateLibrary(element as ClassElement);
+    return await generateLibrary(element as ClassElement);
   }
 }

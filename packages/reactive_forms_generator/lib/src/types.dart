@@ -1,6 +1,8 @@
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:source_gen/source_gen.dart';
+import 'package:analyzer/src/dart/element/element.dart';
+import 'package:analyzer/src/dart/ast/ast.dart';
 
 const _formChecker = TypeChecker.fromUrl(
   'package:reactive_forms_annotations/src/reactive_form_annotation.dart#ReactiveFormAnnotation',
@@ -63,6 +65,39 @@ extension ParameterElementAnnotationExt on ParameterElement {
           throwOnUnresolved: false,
         );
   }
+
+  Map<String, String> annotationParams(TypeChecker? typeChecker) {
+    final result = <String, String>{};
+    final annotation = typeChecker?.firstAnnotationOf(this);
+    try {
+      if (annotation != null) {
+        for (final meta in metadata) {
+          final obj = meta.computeConstantValue()!;
+
+          if (typeChecker?.isExactlyType(obj.type!) == true) {
+            final argumentList = (meta as ElementAnnotationImpl)
+                .annotationAst
+                .arguments as ArgumentListImpl;
+            for (var argument in argumentList.arguments) {
+              final argumentNamedExpression = argument as NamedExpressionImpl;
+              result.addEntries(
+                [
+                  MapEntry(
+                    argumentNamedExpression.name.label.toSource(),
+                    argumentNamedExpression.expression.toSource(),
+                  ),
+                ],
+              );
+            }
+          }
+        }
+      }
+
+      return result;
+    } catch (e) {
+      return result;
+    }
+  }
 }
 
 extension FieldElementAnnotationExt on FieldElement {
@@ -81,5 +116,18 @@ extension ClassElementAnnotationExt on ClassElement {
   DartObject? get rfAnnotation {
     return _formChecker.firstAnnotationOfExact(this) ??
         _formCheckerRf.firstAnnotationOfExact(this);
+  }
+
+  bool get output {
+    try {
+      if (hasRfAnnotation) {
+        final annotation = rfAnnotation;
+        return annotation?.getField('output')?.toBoolValue() ?? false;
+      }
+
+      return false;
+    } catch (e) {
+      return false;
+    }
   }
 }
