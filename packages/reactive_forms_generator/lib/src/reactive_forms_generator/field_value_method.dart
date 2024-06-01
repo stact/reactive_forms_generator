@@ -39,7 +39,7 @@ class FieldValueMethod extends ReactiveFormGeneratorMethod {
 
   @override
   Method? defaultMethod() {
-    final x = field.annotationParams(formControlCheckerRf);
+    final x = field.annotationParams(formControlChecker);
 
     String code = '${field.fieldControlName}${field.nullabilitySuffix}.value';
     String codeTypeCast = ' as ${field.type}';

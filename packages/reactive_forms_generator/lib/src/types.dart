@@ -8,32 +8,16 @@ const _formChecker = TypeChecker.fromUrl(
   'package:reactive_forms_annotations/src/reactive_form_annotation.dart#ReactiveFormAnnotation',
 );
 
-const _formCheckerRf = TypeChecker.fromUrl(
-  'package:reactive_forms_annotations/src/reactive_form_annotation.dart#Rf',
-);
-
 const formControlChecker = TypeChecker.fromUrl(
   'package:reactive_forms_annotations/src/form_control_annotation.dart#FormControlAnnotation',
-);
-
-const formControlCheckerRf = TypeChecker.fromUrl(
-  'package:reactive_forms_annotations/src/form_control_annotation.dart#RfControl',
 );
 
 const formArrayChecker = TypeChecker.fromUrl(
   'package:reactive_forms_annotations/src/form_array_annotation.dart#FormArrayAnnotation',
 );
 
-const formArrayCheckerRf = TypeChecker.fromUrl(
-  'package:reactive_forms_annotations/src/form_array_annotation.dart#RfArray',
-);
-
 const formGroupChecker = TypeChecker.fromUrl(
   'package:reactive_forms_annotations/src/form_group_annotation.dart#FormGroupAnnotation',
-);
-
-const formGroupCheckerRf = TypeChecker.fromUrl(
-  'package:reactive_forms_annotations/src/form_group_annotation.dart#RfGroup',
 );
 
 extension LibraryReaderExt on LibraryReader {
@@ -44,26 +28,7 @@ extension LibraryReaderExt on LibraryReader {
 
 extension ElementRfExt on Element {
   bool get hasRfGroupAnnotation {
-    return formGroupChecker.hasAnnotationOfExact(this) ||
-        formGroupCheckerRf.hasAnnotationOfExact(this);
-  }
-}
-
-extension ParameterElementAnnotationExt on ParameterElement {
-  bool get hasRfAnnotation {
-    return _formChecker.hasAnnotationOfExact(this) ||
-        _formCheckerRf.hasAnnotationOfExact(this);
-  }
-
-  bool get hasRfArrayAnnotation {
-    return formArrayChecker.hasAnnotationOfExact(
-          this,
-          throwOnUnresolved: false,
-        ) ||
-        formArrayCheckerRf.hasAnnotationOfExact(
-          this,
-          throwOnUnresolved: false,
-        );
+    return formGroupChecker.hasAnnotationOfExact(this);
   }
 
   Map<String, String> annotationParams(TypeChecker? typeChecker) {
@@ -100,22 +65,32 @@ extension ParameterElementAnnotationExt on ParameterElement {
   }
 }
 
+extension ParameterElementAnnotationExt on ParameterElement {
+  bool get hasRfAnnotation {
+    return _formChecker.hasAnnotationOfExact(this);
+  }
+
+  bool get hasRfArrayAnnotation {
+    return formArrayChecker.hasAnnotationOfExact(
+      this,
+      throwOnUnresolved: false,
+    );
+  }
+}
+
 extension FieldElementAnnotationExt on FieldElement {
   bool get hasRfAnnotation {
-    return _formChecker.hasAnnotationOfExact(this) ||
-        _formCheckerRf.hasAnnotationOfExact(this);
+    return _formChecker.hasAnnotationOfExact(this);
   }
 }
 
 extension ClassElementAnnotationExt on ClassElement {
   bool get hasRfAnnotation {
-    return _formChecker.hasAnnotationOfExact(this) ||
-        _formCheckerRf.hasAnnotationOfExact(this);
+    return _formChecker.hasAnnotationOfExact(this);
   }
 
   DartObject? get rfAnnotation {
-    return _formChecker.firstAnnotationOfExact(this) ??
-        _formCheckerRf.firstAnnotationOfExact(this);
+    return _formChecker.firstAnnotationOfExact(this);
   }
 
   bool get output {
