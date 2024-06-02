@@ -1,3 +1,7 @@
+## [6.0.0-beta.1]
+
+* BREAKING CHANGE: before generating code make sure to replace @Rf() with @Rf(output: false)
+
 ## [6.0.0-beta.0]
 
 * output
