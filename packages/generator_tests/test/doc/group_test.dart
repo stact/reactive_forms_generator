@@ -86,7 +86,7 @@ void main() {
 const generatedFile = r'''// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file:
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'group.dart';
 
@@ -264,7 +264,7 @@ class _GroupFormBuilderState extends State<GroupFormBuilder> {
   }
 }
 
-class GroupForm implements FormModel<Group> {
+class GroupForm implements FormModel<Group, Group> {
   GroupForm(
     this.form,
     this.path,
@@ -778,7 +778,7 @@ class GroupForm implements FormModel<Group> {
           disabled: false);
 }
 
-class PersonalForm implements FormModel<Personal> {
+class PersonalForm implements FormModel<Personal, Personal> {
   PersonalForm(
     this.form,
     this.path,
@@ -1086,7 +1086,7 @@ class PersonalForm implements FormModel<Personal> {
           disabled: false);
 }
 
-class PhoneForm implements FormModel<Phone> {
+class PhoneForm implements FormModel<Phone, Phone> {
   PhoneForm(
     this.form,
     this.path,
@@ -1394,7 +1394,7 @@ class PhoneForm implements FormModel<Phone> {
           disabled: false);
 }
 
-class AddressForm implements FormModel<Address> {
+class AddressForm implements FormModel<Address, Address> {
   AddressForm(
     this.form,
     this.path,

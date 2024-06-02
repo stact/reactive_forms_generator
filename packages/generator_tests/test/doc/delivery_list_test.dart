@@ -89,7 +89,7 @@ void main() {
 const generatedFile = r'''// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file:
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'delivery_list.dart';
 
@@ -273,7 +273,7 @@ class _DeliveryListFormBuilderState extends State<DeliveryListFormBuilder> {
   }
 }
 
-class DeliveryListForm implements FormModel<DeliveryList> {
+class DeliveryListForm implements FormModel<DeliveryList, DeliveryList> {
   DeliveryListForm(
     this.form,
     this.path,
@@ -790,7 +790,7 @@ class DeliveryListForm implements FormModel<DeliveryList> {
           disabled: false);
 }
 
-class DeliveryPointForm implements FormModel<DeliveryPoint> {
+class DeliveryPointForm implements FormModel<DeliveryPoint, DeliveryPoint> {
   DeliveryPointForm(
     this.form,
     this.path,
@@ -1070,7 +1070,7 @@ class DeliveryPointForm implements FormModel<DeliveryPoint> {
           disabled: false);
 }
 
-class AddressForm implements FormModel<Address> {
+class AddressForm implements FormModel<Address, Address> {
   AddressForm(
     this.form,
     this.path,
@@ -1378,7 +1378,7 @@ class AddressForm implements FormModel<Address> {
           disabled: false);
 }
 
-class ClientForm implements FormModel<Client> {
+class ClientForm implements FormModel<Client, Client> {
   ClientForm(
     this.form,
     this.path,
@@ -2072,7 +2072,8 @@ class _StandaloneDeliveryPointFormBuilderState
   }
 }
 
-class StandaloneDeliveryPointForm implements FormModel<DeliveryPoint> {
+class StandaloneDeliveryPointForm
+    implements FormModel<DeliveryPoint, DeliveryPoint> {
   StandaloneDeliveryPointForm(
     this.form,
     this.path,

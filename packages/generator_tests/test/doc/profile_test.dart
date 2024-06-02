@@ -284,7 +284,7 @@ void main() {
 const generatedFile = r'''// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file:
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'profile.dart';
 
@@ -462,7 +462,7 @@ class _ProfileFormBuilderState extends State<ProfileFormBuilder> {
   }
 }
 
-class ProfileForm implements FormModel<Profile> {
+class ProfileForm implements FormModel<Profile, Profile> {
   ProfileForm(
     this.form,
     this.path,
@@ -1349,7 +1349,8 @@ class ProfileForm implements FormModel<Profile> {
           disabled: false);
 }
 
-class IncidenceFilterForm implements FormModel<IncidenceFilter> {
+class IncidenceFilterForm
+    implements FormModel<IncidenceFilter, IncidenceFilter> {
   IncidenceFilterForm(
     this.form,
     this.path,
@@ -1924,7 +1925,8 @@ class IncidenceFilterForm implements FormModel<IncidenceFilter> {
           disabled: false);
 }
 
-class ThresholdSettingForm implements FormModel<ThresholdSetting> {
+class ThresholdSettingForm
+    implements FormModel<ThresholdSetting, ThresholdSetting> {
   ThresholdSettingForm(
     this.form,
     this.path,
@@ -2179,7 +2181,7 @@ class ThresholdSettingForm implements FormModel<ThresholdSetting> {
           disabled: false);
 }
 
-class TimerSettingForm implements FormModel<TimerSetting> {
+class TimerSettingForm implements FormModel<TimerSetting, TimerSetting> {
   TimerSettingForm(
     this.form,
     this.path,

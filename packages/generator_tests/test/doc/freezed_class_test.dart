@@ -8,7 +8,7 @@ const fileName = 'freezed_class';
 void main() {
   group('reactive_forms_generator', () {
     test(
-      'Freezed support',
+      'Freezed class',
       () async {
         return testGenerator(
           fileName: fileName,
@@ -55,7 +55,7 @@ void main() {
 const generatedFile = r'''// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file:
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'freezed_class.dart';
 
@@ -239,7 +239,7 @@ class _FreezedClassFormBuilderState extends State<FreezedClassFormBuilder> {
   }
 }
 
-class FreezedClassForm implements FormModel<FreezedClass> {
+class FreezedClassForm implements FormModel<FreezedClass, FreezedClass> {
   FreezedClassForm(
     this.form,
     this.path,

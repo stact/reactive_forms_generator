@@ -26,20 +26,24 @@ abstract class ReactiveFormGeneratorMethod {
   }
 
   bool get toOutput {
-    if (field.isFormGroup) {
+    try {
+      if (field.isFormGroup) {
+        return false;
+      }
+
+      if (field.isFormArray) {
+        return false;
+      }
+
+      if (field.isFormGroupArray) {
+        return false;
+      }
+
+      return field.annotationParams(formControlChecker).hasRequiredValidator &&
+          output;
+    } catch (e) {
       return false;
     }
-
-    if (field.isFormArray) {
-      return false;
-    }
-
-    if (field.isFormGroupArray) {
-      return false;
-    }
-
-    return field.annotationParams(formControlChecker).hasRequiredValidator &&
-        output;
   }
 
   Method? formControlMethod() => defaultMethod();
