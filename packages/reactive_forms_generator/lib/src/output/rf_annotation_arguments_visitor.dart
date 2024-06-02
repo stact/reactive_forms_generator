@@ -30,15 +30,17 @@ class RfAnnotationArgumentsVisitor extends RecursiveAstVisitor<dynamic> {
 
 class ClassRenameVisitor extends RecursiveAstVisitor<void> {
   final String oldName;
+  ClassDeclarationImpl? updatedClass;
 
   ClassRenameVisitor(this.oldName);
 
   @override
   void visitClassDeclaration(ClassDeclaration node) {
     if (node.name.lexeme == oldName && node is ClassDeclarationImpl) {
-      final updatedClass = ClassDeclarationImpl(
+      updatedClass = ClassDeclarationImpl(
         comment: null,
-        metadata: node.metadata,
+        metadata:
+            node.metadata.where((e) => e.name.toString() != 'Rf').toList(),
         augmentKeyword: node.augmentKeyword,
         abstractKeyword: node.abstractKeyword,
         macroKeyword: node.macroKeyword,
@@ -194,8 +196,6 @@ class ClassRenameVisitor extends RecursiveAstVisitor<void> {
         }).toList(),
         rightBracket: node.rightBracket,
       );
-
-      NodeReplacer.replace(node, updatedClass);
     }
     super.visitClassDeclaration(node);
   }

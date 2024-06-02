@@ -10,10 +10,8 @@ import 'package:code_builder/code_builder.dart';
 import 'package:reactive_forms_generator/src/extensions.dart';
 import 'package:reactive_forms_generator/src/form_elements/form_array_generator.dart';
 import 'package:reactive_forms_generator/src/form_elements/form_group_generator.dart';
-import 'package:reactive_forms_generator/src/output/extensions.dart';
 import 'package:reactive_forms_generator/src/output/helpers.dart';
 import 'package:reactive_forms_generator/src/output/rf_annotation_arguments_visitor.dart';
-import 'package:reactive_forms_generator/src/output/rf_annotation_collecotor_visitor.dart';
 import 'package:reactive_forms_generator/src/output/rf_paramater_visitor.dart';
 import 'package:reactive_forms_generator/src/reactive_forms/reactive_form_update_value_method.dart';
 import 'package:reactive_forms_generator/src/reactive_forms/reactive_forms_clear_method.dart';
@@ -47,6 +45,8 @@ class FormGenerator {
 
   final DartType? type;
 
+  final u.Declaration ast;
+
   final Map<String, FormGenerator> formGroupGenerators = {};
 
   final Map<String, FormGenerator> nestedFormGroupGenerators = {};
@@ -68,12 +68,13 @@ class FormGenerator {
   //   return false;
   // }
 
-  FormGenerator(this.root, this.element, this.type) {
+  FormGenerator(this.root, this.element, this.type, this.ast) {
     for (var e in formGroups) {
       formGroupGenerators[e.name] = FormGenerator(
         root,
         e.type.element! as ClassElement,
         e.type,
+        ast,
       );
     }
 
@@ -88,6 +89,7 @@ class FormGenerator {
         root,
         typeParameter.element! as ClassElement,
         e.type,
+        ast,
       );
     }
   }
@@ -246,7 +248,11 @@ class FormGenerator {
     final type = field.typeParameter.getDisplayString(withNullability: false);
 
     final formGroupGenerator = FormGenerator(
-        root, field.typeParameter.element as ClassElement, field.typeParameter);
+      root,
+      field.typeParameter.element as ClassElement,
+      field.typeParameter,
+      ast,
+    );
 
     return Method(
       (b) => b
@@ -463,6 +469,7 @@ class FormGenerator {
                   root,
                   typeArguments.first.element! as ClassElement,
                   e.type,
+                  ast,
                 );
 
                 return '${e.name}${generator.className}.forEach((e) => e.toggleDisabled());';
@@ -614,30 +621,26 @@ class FormGenerator {
   }
 
   Future<Code> test() async {
-    final ast = await element.clone();
-
     var rfParameterVisitor = RfParameterVisitor();
-    var rfAnnotationCollectorVisitor = RfAnnotationCollectorVisitor();
+    // var rfAnnotationCollectorVisitor = RfAnnotationCollectorVisitor();
     ast.visitChildren(rfParameterVisitor);
-
     replaceR(
       rfParameterVisitor.fieldDeclaration,
       rfParameterVisitor.fieldFormalParameter,
     );
 
     final astDeclaration = ast as u.ClassDeclarationImpl;
-    ast.accept(
-      ClassRenameVisitor(astDeclaration.name.lexeme),
-    );
+    final renamedClass = ClassRenameVisitor(astDeclaration.name.lexeme);
+    ast.accept(renamedClass);
 
-    astDeclaration.visitChildren(rfAnnotationCollectorVisitor);
+    // renamedClass.updatedClass?.visitChildren(rfAnnotationCollectorVisitor);
 
-    final modifiedCode = generateModifiedCode(
-      astDeclaration.parent?.toSource() ?? '',
-      rfAnnotationCollectorVisitor.annotationsToRemove,
-    );
+    // final modifiedCode = generateModifiedCode(
+    //   renamedClass.updatedClass?.toSource() ?? '',
+    //   rfAnnotationCollectorVisitor.annotationsToRemove,
+    // );
 
-    return Code(modifiedCode);
+    return Code(renamedClass.updatedClass?.toSource() ?? '');
   }
 
   Future<List<Spec>> get generate async {
@@ -800,6 +803,7 @@ class FormGenerator {
           root,
           typeParameter.element! as ClassElement,
           type,
+          ast,
         );
 
         return Method(
