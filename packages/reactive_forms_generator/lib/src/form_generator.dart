@@ -620,7 +620,7 @@ class FormGenerator {
     return displayType;
   }
 
-  Future<Code> test() async {
+  Code test() {
     var rfParameterVisitor = RfParameterVisitor();
     // var rfAnnotationCollectorVisitor = RfAnnotationCollectorVisitor();
     ast.visitChildren(rfParameterVisitor);
@@ -643,9 +643,9 @@ class FormGenerator {
     return Code(renamedClass.updatedClass?.toSource() ?? '');
   }
 
-  Future<List<Spec>> get generate async {
+  List<Spec> get generate {
     return [
-      if (element.output) await test(),
+      if (element.output) test(),
       Class(
         (b) => b
           ..name = className
@@ -766,13 +766,9 @@ class FormGenerator {
             ],
           ),
       ),
-      ...(await Future.wait(
-        formGroupGenerators.values.map((e) => e.generate),
-      ))
-          .expand((e) => e),
-      ...(await Future.wait(
-        nestedFormGroupGenerators.values.map((e) => e.generate),
-      ))
+      ...formGroupGenerators.values.map((e) => e.generate).expand((e) => e),
+      ...nestedFormGroupGenerators.values
+          .map((e) => e.generate)
           .expand((e) => e),
     ];
   }

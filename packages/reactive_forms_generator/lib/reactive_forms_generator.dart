@@ -4,12 +4,10 @@ library reactive_forms_generator;
 
 import 'dart:async';
 
-import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
-import 'package:collection/collection.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:reactive_forms_generator/src/extensions.dart';
 import 'package:reactive_forms_generator/src/types.dart';
@@ -75,13 +73,8 @@ class ReactiveFormsGenerator extends Generator {
       element: element,
     );
 
-    final unit = await element.session!.getResolvedUnit(
-      element.source!.fullName,
-    );
-    unit as ResolvedUnitResult;
-    final Object? ast = unit.unit.declarations.firstWhereOrNull(
-      (declaration) => declaration.declaredElement?.name == element.name!,
-    );
+    final ast = await buildStep.resolver.astNodeFor(element, resolve: true);
+
     if (ast == null) {
       throw InvalidGenerationSourceError('Ast not found', element: element);
     }
@@ -92,6 +85,6 @@ class ReactiveFormsGenerator extends Generator {
       );
     }
 
-    return await generateLibrary(element as ClassElement, ast);
+    return generateLibrary(element as ClassElement, ast);
   }
 }

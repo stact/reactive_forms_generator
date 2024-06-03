@@ -1,3 +1,7 @@
+## [6.0.0-beta.3]
+
+* InconsistentAnalysisException fix
+
 ## [6.0.0-beta.2]
 
 * InconsistentAnalysisException fix

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:code_builder/code_builder.dart';
@@ -15,10 +13,10 @@ import 'package:reactive_forms_generator/src/reactive_forms/reactive_inherited_s
 const stringRef = Reference('String');
 const formGroupRef = Reference('FormGroup');
 
-Future<List<Spec>> generateLibrary(
+List<Spec> generateLibrary(
   ClassElement element,
   Declaration ast,
-) async {
+) {
   final formGenerator = FormGenerator(element, element, null, ast);
   final reactiveInheritedStreamer = ReactiveInheritedStreamer(formGenerator);
   final reactiveForm = ReactiveForm(reactiveInheritedStreamer);
@@ -36,7 +34,7 @@ Future<List<Spec>> generateLibrary(
     reactiveForm.generate,
     reactiveFormExtension.generate,
     ...reactiveFormBuilder.generate,
-    ...(await formGenerator.generate),
+    ...formGenerator.generate,
     reactiveFormArrayBuilder.generate,
     reactiveFormGroupArrayBuilder.generate,
   ];
